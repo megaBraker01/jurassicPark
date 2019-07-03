@@ -1,0 +1,3 @@
+id, nombre, edad, dni
+ahora le voy a meter mas contemido
+y ver lo que le llega
