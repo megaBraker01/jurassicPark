@@ -63,23 +63,34 @@ public class ClienteVista extends Herramientas {
 					Scanner sc1 = new Scanner(System.in);
 					dni = sc1.next();
 					p = cc.buscarPordni(dni);
+					
 					if(p != null) {
 						cv.echo("los datos actuales son: \n"+p.toString() );
 						cv.echo("Editar Nombre:");
-						sc1.next();
-						sc1.next();
-						nombre = sc1.next();
-						p.setNombreCompleto(nombre);
+						Scanner sc2 = new Scanner(System.in);
+						nombre = sc2.nextLine();
+						if(!nombre.isEmpty() && !nombre.equals("")) {
+							p.setNombreCompleto(nombre);
+						}
+						
 						cv.echo("Editar DNI:");
-						dni = sc1.next();
-						p.setDni(dni);
+						dni = sc2.nextLine();
+						if(!dni.isEmpty() && !dni.equals("")) {
+							p.setDni(dni);
+						}
+						
 						cv.echo("Editar Edad:");
-						edad = sc1.next();
-						p.setEdad(Integer.parseInt(edad));
+						edad = sc2.nextLine();
+						if(!edad.isEmpty() && !edad.equals("")) {
+							p.setEdad(Integer.parseInt(edad));
+						}
+						
 						cc.editar(p);
+						//sc2.close();
 					} else {
 						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
 					}
+					//sc1.close();
 					
 					break;
 				case "back":
