@@ -37,8 +37,11 @@
 37, elva yasita henrrique, 44, E3605483238, elva yasita henrrique, 43, W52824474
 38, elva yasita henrrique, 49, Y35197785
 39, alfonso tirado sanchez, 40, C39857772
-40, , 32, 3LK4JKJLJ
-41, algo, 65, 32KLJKJ
+40, nuevo nombre, 32, 3LK4JKJLJ
+41, algo mas, 65, 32KLJKJ
 42, fernando, 656, ALONSO
 43, samuel, 42, 03477851
 44, antonio paredes feliz, 39, 0345KJ434
+45, francisco, 36, 6548797E
+46, carlos aranda, 32, 36544897A
+47, armando ortega, 36, 65489R9875

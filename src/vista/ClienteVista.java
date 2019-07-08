@@ -46,13 +46,34 @@ public class ClienteVista extends Herramientas {
 				case "new":
 					
 					Scanner sc = new Scanner(System.in);
+					p = new Persona();
+					
 					cv.echo("Nombre:");
 					nombre = sc.nextLine();
+					if(!nombre.isEmpty() && !nombre.equals("")) {
+						p.setNombreCompleto(nombre);
+					}
+					
 					cv.echo("DNI:");
-					dni = sc.next();
+					dni = sc.nextLine();
+					if(!dni.isEmpty() && !dni.equals("")) {
+						Persona p2 = new Persona();
+						p2 = cc.buscarPordni(dni);						
+						if(p2 != null) {
+							cv.echo("[ADVERTENCIA!!] ya existe un registro con este DNI");
+							cv.echo(p2);
+							break;
+						} else {
+							p.setDni(dni);
+						}
+					}
+					
 					cv.echo("Edad:");
-					edad = sc.next();				
-					p = new Persona(nombre, Integer.parseInt(edad), dni);
+					edad = sc.nextLine();
+					if(!edad.isEmpty() && !edad.equals("")) {
+						p.setEdad(Integer.parseInt(edad));
+					}
+					
 					cc.nuevo(p);
 					cv.echo("Cliente insertado correctamente");
 					break;

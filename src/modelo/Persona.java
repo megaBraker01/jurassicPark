@@ -29,6 +29,8 @@ public class Persona {
 		setEdad(edad);
 	}
 	
+	public Persona() {}
+	
 	public String getNombreCompleto() {
 		return nombreCompleto;
 	}
