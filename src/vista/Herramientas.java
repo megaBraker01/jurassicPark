@@ -45,6 +45,13 @@ public abstract class Herramientas {
 					ret = opcion;
 					continuar = false;
 					break;
+					/*
+				case "find":
+					this.echo(salida+ "Buscar");
+					ret = opcion;
+					continuar = false;
+					break;
+					*/
 				default:
 					System.out.println("[ERROR] \""+opcion+"\" NO es una opcion valida \nElige ota vez:");				
 					break;
