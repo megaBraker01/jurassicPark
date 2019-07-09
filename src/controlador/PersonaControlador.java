@@ -17,6 +17,7 @@ public class PersonaControlador {
 
 	/**
 	 * 
+	 * @param nombreArchivo nombre del archivo que guardará los datos
 	 */
 	public PersonaControlador(String nombreArchivo) {
 		this.ARCHIVO = nombreArchivo;
@@ -39,7 +40,7 @@ public class PersonaControlador {
 		String archivo = ArchivoControlador.leer(ARCHIVO);
 		String[] fila = archivo.split("\n");
 		List<Persona> lista = new ArrayList<>();
-		if(fila.length > 0) {
+		if(fila.length > 0 && !archivo.equals("")) {
 			for(String registros : fila) {
 				String[] campos = registros.split(", ");
 				Persona Persona = new Persona(Integer.parseInt(campos[0]), campos[1], Integer.parseInt(campos[2].trim()), campos[3]);
@@ -86,10 +87,12 @@ public class PersonaControlador {
 		for(int i = fila.length - 1; i >= 0; i--) {
 			String registros = fila[i];
 			String[] campos = registros.split(", ");
-			if(campos[3].equalsIgnoreCase(dni)) {
-				Persona = new Persona(Integer.parseInt(campos[0]), campos[1], Integer.parseInt(campos[2].trim()), campos[3]);
-				break;
-			}
+			if(campos.length > 3) {
+				if(campos[3].equalsIgnoreCase(dni)) {
+					Persona = new Persona(Integer.parseInt(campos[0]), campos[1], Integer.parseInt(campos[2].trim()), campos[3]);
+					break;
+				}
+			}			
 		}
 		return Persona;
 	}
@@ -143,7 +146,7 @@ public class PersonaControlador {
 		if(ArchivoControlador.existe(ARCHIVO)) {
 			String archivo = ArchivoControlador.leer(ARCHIVO);
 			String[] fila = archivo.split("\n");			
-			if(fila.length > 0) {
+			if(fila.length > 0 && !archivo.equals("")) {
 				int ultimo = fila.length-1;
 				String[] campoid = fila[ultimo].split(", ");
 				ultimoID = Integer.parseInt(campoid[0]);

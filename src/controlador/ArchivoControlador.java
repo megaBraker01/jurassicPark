@@ -53,20 +53,31 @@ public class ArchivoControlador {
 	 * @return String ret: contenido del archivo
 	 */
 	public static String leer(String path) {
-		File archivo = new File(ARCHIVO_RUTA + path);
+		String ruta = ARCHIVO_RUTA + path;
+		File archivo = new File(ruta);
 		String ret = "";
-		try {
-			FileReader leer = new FileReader(archivo.getAbsolutePath());
-			BufferedReader bf = new BufferedReader(leer);
-			String contenido;			
-			while((contenido = bf.readLine()) != null) {
-				ret += contenido+"\n";
+		if(archivo.exists()) {
+			try {
+				FileReader leer = new FileReader(archivo.getAbsolutePath());
+				BufferedReader bf = new BufferedReader(leer);
+				String contenido;			
+				while((contenido = bf.readLine()) != null) {
+					ret += contenido+"\n";
+				}
+				bf.close();
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
-			bf.close();
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} else {
+			System.out.println("No hay nada para leer en el directorio:\n"+ruta);
+			if(path.contains(".")) {
+				String[] documento = path.split("\\.");
+				int numero = documento.length;
+				ArchivoControlador.crear(documento[0], documento[1], null);
+			}			
 		}
+		
 		return ret;		
 	}
 	
