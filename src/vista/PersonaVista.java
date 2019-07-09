@@ -83,7 +83,7 @@ public class PersonaVista extends Herramientas {
 					
 				case "edit":
 					
-					cv.echo("Inserte el DNI del cliente a editar:");
+					cv.echo("Inserte el DNI del "+nombreSeccion.toUpperCase()+" a editar:");
 					Scanner sc1 = new Scanner(System.in);
 					dni = sc1.next();
 					p = cc.buscarPordni(dni);

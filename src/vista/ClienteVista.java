@@ -17,6 +17,13 @@ public class ClienteVista extends Herramientas {
 	}
 	
 	public static boolean main(String[] args) {
+		PersonaVista.main("clientes");
+		return false;		
+	}
+	
+	/*
+	
+	public static boolean main(String[] args) {
 		ClienteVista cv = new ClienteVista();		
 		ClienteControlador cc = new ClienteControlador("clientes.txt");
 		@SuppressWarnings("resource")
@@ -133,4 +140,5 @@ public class ClienteVista extends Herramientas {
 		
 		return false;
 	}
+	*/
 }

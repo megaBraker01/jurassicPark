@@ -19,7 +19,7 @@ public class EmpleadoVista extends Herramientas {
 	}
 	
 	public static boolean main(String[] args) {
-		PersonaVista.main("empleado");
+		PersonaVista.main("empleados");
 		return false;		
 	}
 	
