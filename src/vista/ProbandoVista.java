@@ -5,50 +5,65 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 import controlador.ClienteControlador;
-import modelo.Cliente;
+import controlador.EmpleadoControlador;
+//import controlador.ClienteControlador;
+import controlador.PersonaControlador;
 import modelo.Persona;
 
 /**
  * @author Rafael Perez Sanchez
  *
  */
-public class ClienteVista extends Herramientas {
+public class ProbandoVista extends Herramientas {
 
-	public ClienteVista() {}
+	public ProbandoVista() {
+	}
 	
-	public static boolean main(String[] args) {
-		String seccion = "clientes";
-		ClienteVista cv = new ClienteVista();		
-		ClienteControlador cc = new ClienteControlador(seccion+".txt");
+	public static boolean main(String nombreSeccion) {
+		Herramientas cv;
+		PersonaControlador cc;
+		
+		if(nombreSeccion.equalsIgnoreCase("clientes")) {
+			cv = new ClienteVista();	
+			cc = new ClienteControlador(nombreSeccion+".txt");
+		} else if (nombreSeccion.equalsIgnoreCase("empleados")) {
+			cv = new EmpleadoVista();
+			cc = new EmpleadoControlador(nombreSeccion+".txt");
+		} else {
+			return false;
+		}
+		
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
 		while(continuar) {
 			
-			cv.echo("\n-["+seccion.toUpperCase()+"]-");		
-			cv.crudMenu();
-			cv.echo("elige una opcion:_");
+			((Herramientas) cv).echo("\n-["+nombreSeccion.toUpperCase()+"]-");		
+			((Herramientas) cv).crudMenu();
+			((Herramientas) cv).echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
 			Persona p;
 			String nombre;
 			String dni;
 			String edad;
+			
 			switch(opcion) {
 				case "list":
 					
 					Iterator<Persona> iterador = cc.lista().iterator();
-					//cv.echo("\n[ID] [NOMBRE] [EDAD] [DNI]");
-					cv.mainMenu();
-					while(iterador.hasNext()) {
-						cv.echo(iterador.next().toString());
-					}
+					if(iterador.hasNext()) {
+						cv.mainMenu();
+						while(iterador.hasNext()) {
+							cv.echo(iterador.next().toString());
+						}
+					}					
 					break;
 					
 				case "new":
 					
 					Scanner sc = new Scanner(System.in);
-					p = new Cliente();
+					p = new Persona();
 					
 					cv.echo("Nombre:");
 					nombre = sc.nextLine();
@@ -59,7 +74,7 @@ public class ClienteVista extends Herramientas {
 					cv.echo("DNI:");
 					dni = sc.nextLine();
 					if(!dni.isEmpty() && !dni.equals("")) {
-						Persona p2 = new Cliente();
+						Persona p2 = new Persona();
 						p2 = cc.buscarPordni(dni);						
 						if(p2 != null) {
 							cv.echo("[ADVERTENCIA!!] ya existe un registro con este DNI");
@@ -68,9 +83,6 @@ public class ClienteVista extends Herramientas {
 						} else {
 							p.setDni(dni);
 						}
-					} else {
-						cv.echo("[ERROR] El DNI no puede estar vacio");
-						break;
 					}
 					
 					cv.echo("Edad:");
@@ -80,22 +92,19 @@ public class ClienteVista extends Herramientas {
 					}
 					
 					cc.nuevo(p);
-					cv.echo("Cliente insertado correctamente");
+					cv.echo(nombreSeccion.toUpperCase()+" insertado correctamente");
 					break;
 					
 				case "edit":
 					
-					cv.echo("Inserte el DNI del cliente a editar:");
+					cv.echo("Inserte el DNI del "+nombreSeccion.toUpperCase()+" a editar:");
 					Scanner sc1 = new Scanner(System.in);
 					dni = sc1.next();
 					p = cc.buscarPordni(dni);
 					
-					if(p == null) {
-						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
-					} else {
+					if(p != null) {
 						cv.echo("los datos actuales son:");
-						//cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
-						cv.mainMenu();
+						cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
 						cv.echo(p.toString());
 						cv.echo("Editar Nombre:");
 						Scanner sc2 = new Scanner(System.in);
@@ -120,14 +129,16 @@ public class ClienteVista extends Herramientas {
 						cv.echo("\nLos nuevos datos son:");
 						cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
 						cv.echo(p);
+					} else {
+						cv.echo("[ERROR] No se ha encontrado al "+nombreSeccion.toUpperCase()+" con el DNI: "+ dni);
 					}
 					
 					break;
-				case "find": /* de momento no hace nada*/
+				case "find":
 					break;
 				case "back":
 					
-					cv.echo("Saliendo de la seccion [Clientes]");
+					cv.echo("Saliendo de la seccion ["+nombreSeccion.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
@@ -139,5 +150,4 @@ public class ClienteVista extends Herramientas {
 		
 		return false;
 	}
-	
 }

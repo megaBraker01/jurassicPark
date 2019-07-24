@@ -41,5 +41,10 @@ public class Empleado extends Persona implements personaInterfaz {
 	public void setGrupo(int grupo) {
 		this.grupo = grupo;
 	}
+	
+	public String toString() {
+		return super.toString() + ", " + this.getGrupo();
+		
+	}
 
 }

@@ -14,6 +14,8 @@ public class Cliente extends Persona implements personaInterfaz {
      */
     public static final int INDETERMINADO = 0, BEBE = 1, NINIO = 2, ADULTO = 3, SENIOR = 4;
     
+    public Cliente() {}
+    
     public Cliente(String nombreCompleto, int edad, String dni) {
         super(nombreCompleto, edad);
         this.setDni(dni);
@@ -30,7 +32,7 @@ public class Cliente extends Persona implements personaInterfaz {
      * retorna el tipo de visitante 
      * 0 = indeterminado
      * 1 = Bebe
-     * 2 = Niño
+     * 2 = Niï¿½o
      * 3 = Adulto
      * 4 = Senior
      */
