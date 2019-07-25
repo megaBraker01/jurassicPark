@@ -2,6 +2,7 @@ package vista;
 
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import controlador.ClienteControlador;
@@ -37,12 +38,15 @@ public class ClienteVista extends Herramientas {
 			switch(opcion) {
 				case "list":
 					
-					Iterator<Persona> iterador = cc.lista().iterator();
-					//cv.echo("\n[ID] [NOMBRE] [EDAD] [DNI]");
-					cv.mainMenu();
+					List<Persona> lista = cc.lista();
+					int total = lista.size();
+					Iterator<Persona> iterador = lista.iterator();
+					cv.echo("Total de "+seccion+": "+total);
+					cv.echo(cv.mostrarEncabezado());
 					while(iterador.hasNext()) {
 						cv.echo(iterador.next().toString());
 					}
+					cv.echo("Total de "+seccion+": "+total);
 					break;
 					
 				case "new":
@@ -94,8 +98,7 @@ public class ClienteVista extends Herramientas {
 						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
 					} else {
 						cv.echo("los datos actuales son:");
-						//cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
-						cv.mainMenu();
+						cv.echo(cv.mostrarEncabezado());
 						cv.echo(p.toString());
 						cv.echo("Editar Nombre:");
 						Scanner sc2 = new Scanner(System.in);
@@ -118,7 +121,7 @@ public class ClienteVista extends Herramientas {
 						
 						cc.editar(p);
 						cv.echo("\nLos nuevos datos son:");
-						cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
+						cv.echo(cv.mostrarEncabezado());
 						cv.echo(p);
 					}
 					
@@ -127,12 +130,12 @@ public class ClienteVista extends Herramientas {
 					break;
 				case "back":
 					
-					cv.echo("Saliendo de la seccion [Clientes]");
+					cv.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
 				default:
-					cv.echo("[ERROR] \""+opcion+"\" NO es una opcion valida \nIntenta ota vez:");				
+					cv.echo("[ERROR] "+opcion+" NO es una opcion valida \nIntenta ota vez:");				
 					break;
 			}
 		}

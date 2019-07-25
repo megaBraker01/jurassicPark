@@ -2,9 +2,11 @@ package vista;
 
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
-import controlador.ClienteControlador;
+import controlador.EmpleadoControlador;
+import modelo.Cliente;
 import modelo.Persona;
 
 /**
@@ -13,27 +15,18 @@ import modelo.Persona;
  */
 public class EmpleadoVista extends Herramientas {
 
-	public EmpleadoVista() {
-		//PersonaVista pv = new PersonaVista("empleado");
-		PersonaVista.main("empleado");
-	}
+	public EmpleadoVista() {}
 	
 	public static boolean main(String[] args) {
-		PersonaVista.main("empleados");
-		return false;		
-	}
-	
-	
-	/*
-	public static boolean main(String[] args) {
+		String seccion = "empleados";
 		EmpleadoVista cv = new EmpleadoVista();		
-		ClienteControlador cc = new ClienteControlador("clientes.txt");
+		EmpleadoControlador cc = new EmpleadoControlador(seccion+".txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
 		while(continuar) {
 			
-			cv.echo("\n-[Clientes]-");		
+			cv.echo("\n-["+seccion.toUpperCase()+"]-");		
 			cv.crudMenu();
 			cv.echo("elige una opcion:_");
 			
@@ -44,18 +37,21 @@ public class EmpleadoVista extends Herramientas {
 			String edad;
 			switch(opcion) {
 				case "list":
-					
-					Iterator<Persona> iterador = cc.lista().iterator();
-					cv.echo("\n[ID] [NOMBRE] [EDAD] [DNI]");
+					List<Persona> lista = cc.lista();
+					int total = lista.size();
+					Iterator<Persona> iterador = lista.iterator();
+					cv.echo("Total de "+seccion+": "+total);
+					cv.echo(cv.mostrarEncabezado());
 					while(iterador.hasNext()) {
 						cv.echo(iterador.next().toString());
 					}
+					cv.echo("Total de "+seccion+": "+total);
 					break;
 					
 				case "new":
 					
 					Scanner sc = new Scanner(System.in);
-					p = new Persona();
+					p = new Cliente();
 					
 					cv.echo("Nombre:");
 					nombre = sc.nextLine();
@@ -66,7 +62,7 @@ public class EmpleadoVista extends Herramientas {
 					cv.echo("DNI:");
 					dni = sc.nextLine();
 					if(!dni.isEmpty() && !dni.equals("")) {
-						Persona p2 = new Persona();
+						Persona p2 = new Cliente();
 						p2 = cc.buscarPordni(dni);						
 						if(p2 != null) {
 							cv.echo("[ADVERTENCIA!!] ya existe un registro con este DNI");
@@ -75,6 +71,9 @@ public class EmpleadoVista extends Herramientas {
 						} else {
 							p.setDni(dni);
 						}
+					} else {
+						cv.echo("[ERROR] El DNI no puede estar vacio");
+						break;
 					}
 					
 					cv.echo("Edad:");
@@ -84,19 +83,21 @@ public class EmpleadoVista extends Herramientas {
 					}
 					
 					cc.nuevo(p);
-					cv.echo("Cliente insertado correctamente");
+					cv.echo("Empleado insertado correctamente");
 					break;
 					
 				case "edit":
 					
-					cv.echo("Inserte el DNI del cliente a editar:");
+					cv.echo("Inserte el DNI del empleado a editar:");
 					Scanner sc1 = new Scanner(System.in);
 					dni = sc1.next();
 					p = cc.buscarPordni(dni);
 					
-					if(p != null) {
+					if(p == null) {
+						cv.echo("[ERROR] No se ha encontrado al empleado con el DNI: "+ dni);
+					} else {
 						cv.echo("los datos actuales son:");
-						cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
+						cv.echo(cv.mostrarEncabezado());
 						cv.echo(p.toString());
 						cv.echo("Editar Nombre:");
 						Scanner sc2 = new Scanner(System.in);
@@ -119,28 +120,25 @@ public class EmpleadoVista extends Herramientas {
 						
 						cc.editar(p);
 						cv.echo("\nLos nuevos datos son:");
-						cv.echo("[ID] [NOMBRE] [EDAD] [DNI]");
+						cv.echo(cv.mostrarEncabezado());
 						cv.echo(p);
-					} else {
-						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
 					}
 					
 					break;
-				case "find":
+				case "find": /* de momento no hace nada*/
 					break;
 				case "back":
 					
-					cv.echo("Saliendo de la seccion [Clientes]");
+					cv.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
 				default:
-					cv.echo("[ERROR] \""+opcion+"\" NO es una opcion valida \nIntenta ota vez:");				
+					cv.echo("[ERROR] "+opcion+" NO es una opcion valida \nIntenta ota vez:");				
 					break;
 			}
 		}
 		
 		return false;
 	}
-	*/
 }

@@ -12,8 +12,8 @@ public abstract class Herramientas {
 		System.out.println("Listar (list) | Nuevo (new) | Editar (edit) | Atras (back)");
 	}
 	
-	public void mainMenu() {
-		System.out.println("\n[ID] [NOMBRE] [EDAD] [DNI]");
+	public String mostrarEncabezado() {
+		return "\n[ID] [NOMBRE] [EDAD] [DNI]";
 	}
 	
 	public String entrada() {
