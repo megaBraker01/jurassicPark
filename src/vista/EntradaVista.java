@@ -1,5 +1,8 @@
 package vista;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -31,6 +34,7 @@ public class EntradaVista extends Herramientas {
 			cv.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
+			Entrada e;
 			switch(opcion) {
 				case "list":
 					
@@ -42,6 +46,28 @@ public class EntradaVista extends Herramientas {
 					break;
 					
 				case "new":
+					
+					//Scanner sc = new Scanner(System.in);
+					e = new Entrada();
+					
+					// insertamos el cliente nuevo
+					int idCliente = ClienteVista.nuevo();
+					
+					// si se crea el cliente, entonces creamos la entrada
+					if(idCliente > 0) {
+						e.setIdCliente(idCliente);
+						e.setTipo(Entrada.TIPO_GENERAL);
+						e.setPrecio(79);
+						Date fecha = new Date();
+						DateFormat fechaCompra = new SimpleDateFormat("dd/MM/yyyy");
+						//String fechaCompra = fecha.getDay()+"-"+fecha.getMonth()+"-"+fecha.getYear();
+						e.setFechaCompra(fechaCompra.format(fecha));
+						e.setDescuento(1);
+						e.setVip(true);
+						
+						// luego de setear todos los campos de la entrada, ahora la grabamos en su archivo correspondiente
+						ec.nuevo(e);
+					}
 					break;
 					
 				case "edit":

@@ -22,7 +22,8 @@ public class Entrada {
 	 * 4 = familiar
 	 * 5 = otras
 	 */
-	private int tipo = 1;
+	public static final int TIPO_GENERAL = 1, TIPO_LABORABLE = 2, TIPO_TARDE = 3, TIPO_FAMILIAR = 4, TIPO_OTRAS = 5;
+	private int tipo;
 	
 	/**
 	 * es el precio base de la entrada (en Euros)
@@ -39,10 +40,6 @@ public class Entrada {
 	 */
 	private int descuento = 0;
 	
-	/**
-	 * los posibles tipos de entradas que pueden haber 
-	 */
-	public static final int OTRAS = 0, GENERAL = 1, FAMILIAR = 2, TARDE = 3,  DIA_LABORABLE = 4;
 	
 	
 	/**
@@ -50,6 +47,7 @@ public class Entrada {
 	 */
 	private boolean vip = false;
 	
+	public Entrada() {}
 	
 	public Entrada(int idCliente, String fechaCompra) {
 		setIdCliente(idCliente);

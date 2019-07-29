@@ -46,3 +46,8 @@
 46, carlos aranda, 32, 36544897A
 47, armando ortega, 36, 65489R9875
 48, martin rufian, 43, G45920314
+49, samuel alcantara, 35, 3948284K
+50, antonio gonzales, 43, 345236JH
+51, martin augusto, 43, 23423452I
+52, robert martin, 23, 987894684L
+53, maria antonia, 32, 983847589K
