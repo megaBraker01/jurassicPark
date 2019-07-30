@@ -1,0 +1,67 @@
+persona
+	modelo: guarda datos
+		parametros
+		constructor
+		getters
+		setters
+
+	controlador: maneja el modelo, hace el crud del modelo
+		nuevo -> inserta los datos de la persona en el archivo indicado
+		listar
+		buscar -> si encuentra retorna el modelo de la persona, si no retorna null
+		editar
+
+	vista: muestra las opciones que tiene el usuario para interactuar
+		nuevo:
+			ret = controlador.buscar
+			si ret == null ? controlador.nuevo : ret			
+		listar
+			controlador.listar
+		buscar
+			
+		editar
+///////////////////////////////////////////////////////////
+
+
+cliente hereda de persona
+	modelo: guarda datos
+		parametros
+		constructor
+		getters
+		setters
+
+	controlador: maneja el modelo, hace el crud del modelo
+		nuevo
+		listar
+		buscar
+		editar
+
+	vista: muestra las opciones que tiene el usuario para interactuar
+		nuevo
+		listar
+		buscar
+		editar
+///////////////////////////////////////////////////////////
+
+
+empleado hereda de persona
+	modelo: guarda datos
+		parametros
+		constructor
+		getters
+		setters
+
+	controlador: maneja el modelo, hace el crud del modelo
+		nuevo
+		listar
+		buscar
+		editar
+
+	vista: muestra las opciones que tiene el usuario para interactuar
+		nuevo
+		listar
+		buscar
+		editar
+
+
+

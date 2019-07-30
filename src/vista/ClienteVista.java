@@ -50,7 +50,18 @@ public class ClienteVista extends Herramientas {
 					break;
 					
 				case "new":
+					cv.echo("indique el DNI del cliente");
+					Persona cli = ClienteVista.buscar();
+					if (cli != null) {
+						cv.echo("Ya existe un cliente con el DNI indicado");
+						cv.echo(cli);
+					} else {
+						ClienteVista.nuevo();
+					}
+					break;
+					//cv.echo("Indique los tados del nuevo cliente");
 					
+					/*
 					Scanner sc = new Scanner(System.in);
 					p = new Cliente();
 					
@@ -86,6 +97,7 @@ public class ClienteVista extends Herramientas {
 					cc.nuevo(p);
 					cv.echo("Cliente insertado correctamente");
 					break;
+					*/
 					
 				case "edit":
 					
@@ -143,57 +155,58 @@ public class ClienteVista extends Herramientas {
 		return false;
 	}
 	
+	public static Persona buscar () {
+		Persona ret = null;
+		Scanner sc = new Scanner(System.in);
+		ClienteControlador cc = new ClienteControlador("clientes.txt");
+		ClienteVista cv = new ClienteVista();
+		String dni;
+		cv.echo("DNI:");
+		dni = sc.nextLine();
+		
+		if(!dni.isEmpty() && !dni.equals("")) {
+			ret = cc.buscarPordni(dni);
+		} else {
+			cv.echo("[ERROR] El DNI no puede estar vacio");
+		}
+		return ret;		
+	}
+	
 	public static int nuevo () {
 		Scanner sc = new Scanner(System.in);
-		int ret = 0;
+		int ret = 0; // valor de retorno por defecto
 		Persona p;
 		String nombre;
 		String dni;
 		String edad;
 		ClienteVista cv = new ClienteVista();
 		ClienteControlador cc = new ClienteControlador("clientes.txt");
-		p = new Cliente();
-		
-		cv.echo("Nombre:");
-		nombre = sc.nextLine();
-		if(!nombre.isEmpty() && !nombre.equals("")) {
-			p.setNombreCompleto(nombre);
-		}
-		
+		p = new Cliente();		
 		cv.echo("DNI:");
 		dni = sc.nextLine();
-		Persona p2 = new Cliente();
-		if(!dni.isEmpty() && !dni.equals("")) {			
-			p2 = cc.buscarPordni(dni);						
-			if(p2 != null) {
-				ret = -1;
-			} else {
-				p.setDni(dni);
+		if(!dni.isEmpty() && !dni.equals("")) {	
+			p.setDni(dni);
+			
+			cv.echo("Nombre:");
+			nombre = sc.nextLine();
+			if(!nombre.isEmpty() && !nombre.equals("")) {
+				p.setNombreCompleto(nombre);
 			}
-		} else {			
-			ret = -2;
-		}
-		
-		// se maneja los errores
-		switch (ret) {
-		case -1:
-			cv.echo("[ADVERTENCIA!!] ya existe un registro con este DNI");
-			cv.echo(p2);
-			break;
-		case -2:
-			cv.echo("[ERROR] El DNI no puede estar vacio");
-		}
-		
-		cv.echo("Edad:");
-		edad = sc.nextLine();
-		if(!edad.isEmpty() && !edad.equals("")) {
-			p.setEdad(Integer.parseInt(edad));
-		}
-		
-		// creamos el nuevo cliente y seteamos ret para que devuelva su id
-		cc.nuevo(p);
-		ret = p.getId();
-		cv.echo("Cliente insertado correctamente");		
+			
+			cv.echo("Edad:");
+			edad = sc.nextLine();
+			if(!edad.isEmpty() && !edad.equals("")) {
+				p.setEdad(Integer.parseInt(edad));
+			}
+			
+			// creamos el nuevo cliente y seteamos ret para que devuelva su id
+			cc.nuevo(p);
+			ret = p.getId();
+			cv.echo("Cliente insertado correctamente");	
+		} else {
+			cv.echo("[ERROR] El DNI no puede estar vacio");	
+			ret = -1;
+		}		
 		
 		return ret;
 	}
