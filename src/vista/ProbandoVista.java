@@ -53,7 +53,7 @@ public class ProbandoVista extends Herramientas {
 					
 					Iterator<Persona> iterador = cc.lista().iterator();
 					if(iterador.hasNext()) {
-						cv.mainMenu();
+						//cv.mainMenu();
 						while(iterador.hasNext()) {
 							cv.echo(iterador.next().toString());
 						}

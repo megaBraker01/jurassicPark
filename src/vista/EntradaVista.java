@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 import controlador.EntradaControlador;
+import modelo.Cliente;
 import modelo.Entrada;
 import modelo.Persona;
 
@@ -93,19 +94,19 @@ public class EntradaVista extends Herramientas {
 		Scanner sc = new Scanner(System.in);
 		Entrada e = new Entrada();
 		ev.echo("Indique el DNI del cliente");
-		Persona cli = ClienteVista.buscar();
+		Cliente cli = (Cliente) ClienteVista.buscar();
 		if(cli != null) {
 			ev.echo("Ya existe un cliente con el DNI indicado");
 			ev.echo(cli);
 			ev.echo("Desea usar estos datos para la entrada? (si, no)");
 			String respuesta = sc.nextLine().toLowerCase();
-			switch(respuesta) {
+			switch(respuesta.toLowerCase()) {
 				case "si":
 					e.setIdCliente(cli.getId());
 					e.setTipo(Entrada.TIPO_GENERAL);
 					e.setPrecio(79);
 					Date fecha = new Date();
-					DateFormat fechaCompra = new SimpleDateFormat("dd/MM/yyyy");
+					DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
 					//String fechaCompra = fecha.getDay()+"-"+fecha.getMonth()+"-"+fecha.getYear();
 					e.setFechaCompra(fechaCompra.format(fecha));
 					e.setDescuento(1);
@@ -113,11 +114,26 @@ public class EntradaVista extends Herramientas {
 					
 					// luego de setear todos los campos de la entrada, ahora la grabamos en su archivo correspondiente
 					ec.nuevo(e);
+					ev.echo("Entrada insertada correctamente");
 					ret = 1;
 					break;
 				case "no":
 					break;
 			}
+			
+		} else {
+			int idCliente = ClienteVista.nuevo();
+			e.setIdCliente(idCliente);
+			e.setTipo(Entrada.TIPO_GENERAL);
+			e.setPrecio(79);
+			Date fecha = new Date();
+			DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
+			e.setFechaCompra(fechaCompra.format(fecha));
+			e.setDescuento(1);
+			e.setVip(false);
+			ec.nuevo(e);
+			ev.echo("Entrada insertada correctamente");
+			ret = 1;
 			
 		}
 		/*

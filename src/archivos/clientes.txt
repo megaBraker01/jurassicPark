@@ -51,3 +51,6 @@
 51, martin augusto, 43, 23423452I
 52, robert martin, 23, 987894684L
 53, maria antonia, 32, 983847589K
+54, null, 0, 03477542B
+55, mauel alonzo, 43, 43454543K
+56, juan peralta, 34, 46234324K
