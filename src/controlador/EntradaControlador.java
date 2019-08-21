@@ -34,9 +34,9 @@ public class EntradaControlador {
 						Integer.parseInt(campos[1].trim()),
 						Integer.parseInt(campos[2].trim()),
 						Double.parseDouble(campos[3]),
-						campos[4],
-						Integer.parseInt(campos[5].trim()),
-						Boolean.parseBoolean(campos[6])
+						Integer.parseInt(campos[4].trim()),
+						Boolean.parseBoolean(campos[6]),
+						campos[7]
 								);
 				lista.add(Entrada);
 				

@@ -202,7 +202,7 @@ public class ClienteVista extends Herramientas {
 			// creamos el nuevo cliente y seteamos ret para que devuelva su id
 			cc.nuevo(p);
 			ret = p.getId();
-			cv.echo("Cliente insertado correctamente");	
+			cv.echo("Cliente creado correctamente");	
 		} else {
 			cv.echo("[ERROR] El DNI no puede estar vacio");	
 			ret = -1;

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import controlador.EntradaControlador;
@@ -24,8 +25,9 @@ public class EntradaVista extends Herramientas {
 	 * @param args
 	 */
 	public static boolean main(String[] args) {
+		String seccion = "entradas";
 		EntradaVista ev = new EntradaVista();		
-		EntradaControlador ec = new EntradaControlador("entradas.txt");
+		EntradaControlador ec = new EntradaControlador(seccion+".txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
@@ -39,37 +41,20 @@ public class EntradaVista extends Herramientas {
 			Entrada e;
 			switch(opcion) {
 				case "list":
-					
-					Iterator<Entrada> iterador = ec.lista().iterator();
-					ev.echo("\n[ID] [IDCLIENTE] [TIPO] [PRECIO] [FECHA DE LA COMPRA] [DESCUENTO] [ESVIP?]");
+					List<Entrada> lista = ec.lista();
+					Iterator<Entrada> iterador = lista.iterator();
+					int total = lista.size();
+					ev.echo("Total de "+seccion+": "+total);
+					ev.echo(ev.mostrarMenuLista());
 					while(iterador.hasNext()) {
 						ev.echo(iterador.next().toString());
 					}
+					ev.echo(ev.mostrarMenuLista());
+					ev.echo("Total de "+seccion+": "+total);
 					break;
 					
 				case "new":
 					EntradaVista.nuevo();
-					/*
-					Scanner sc = new Scanner(System.in);
-					int ret = EntradaVista.nuevo();
-					ev.echo("el resultado de ret es: "+ ret);
-					if ( ret == -1 ) {
-						ev.echo("quieres usar estos datos para la entrada? (si, no)");
-						switch(sc.nextLine().toLowerCase()) {
-						case "si":
-							
-						break;
-						case "no":
-							
-						break;
-						default:
-							ev.echo("opcion NO valida");
-						break;
-						}
-					}
-					
-					break;
-					*/
 				case "edit":
 					break;
 				case "back":
@@ -87,6 +72,10 @@ public class EntradaVista extends Herramientas {
 		return false;
 	}
 	
+	public String mostrarMenuLista() {
+		return "\n[ID] [IDCLIENTE] [TIPO] [PRECIO] [DESCUENTO] [PRECIO FINAL] [ESVIP?] [FECHA DE LA COMPRA]";
+	}
+	
 	public static int nuevo() {	
 		EntradaControlador ec = new EntradaControlador("entradas.txt");
 		EntradaVista ev = new EntradaVista();
@@ -94,72 +83,104 @@ public class EntradaVista extends Herramientas {
 		Scanner sc = new Scanner(System.in);
 		Entrada e = new Entrada();
 		ev.echo("Indique el DNI del cliente");
-		Cliente cli = (Cliente) ClienteVista.buscar();
+		Persona cli = ClienteVista.buscar();
+		Date fecha = new Date();
+		DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
+		float precioEntrada = 60;
+		int descuento = 0;
 		if(cli != null) {
 			ev.echo("Ya existe un cliente con el DNI indicado");
 			ev.echo(cli);
 			ev.echo("Desea usar estos datos para la entrada? (si, no)");
 			String respuesta = sc.nextLine().toLowerCase();
-			switch(respuesta.toLowerCase()) {
+			switch(respuesta) {
 				case "si":
 					e.setIdCliente(cli.getId());
-					e.setTipo(Entrada.TIPO_GENERAL);
-					e.setPrecio(79);
-					Date fecha = new Date();
-					DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
-					//String fechaCompra = fecha.getDay()+"-"+fecha.getMonth()+"-"+fecha.getYear();
-					e.setFechaCompra(fechaCompra.format(fecha));
-					e.setDescuento(1);
-					e.setVip(true);
+					ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
+					String tipoEntrada = sc.nextLine().toLowerCase();
+					ev.echo("Es cliente VIP? (si, no)");
+					String esVIP = sc.nextLine().toLowerCase();
+					switch(tipoEntrada) {
+						case "1":
+							e.setTipo(Entrada.TIPO_GENERAL);
+							break;
+						case "2":
+							e.setTipo(Entrada.TIPO_LABORABLE);
+							/**
+							 * este tipo de entrada es 10% menor que la entrada general
+							 */
+							precioEntrada = precioEntrada - ((precioEntrada * 10)/100);
+							break;
+						case "3":
+							/**
+							 * este tipo de entrada es 20% menor que la entrada general
+							 */
+							precioEntrada = precioEntrada - ((precioEntrada * 20)/100);
+							e.setTipo(Entrada.TIPO_TARDE);
+							break;
+						case "4":
+							/**
+							 * este tipo de entrada es 8% menor que la entrada general
+							 */
+							precioEntrada = precioEntrada - ((precioEntrada * 8)/100);
+							e.setTipo(Entrada.TIPO_FAMILIAR);
+							break;
+						default:
+							e.setTipo(Entrada.TIPO_GENERAL);
+							break;
+					}
 					
-					// luego de setear todos los campos de la entrada, ahora la grabamos en su archivo correspondiente
+					/**
+					 * si es VIP no se le aplica descuento
+					 */
+					if(esVIP.equals("si")) {
+						precioEntrada += 50;
+					} else {
+						if(cli.getEdad() < 18) {
+							descuento += 50;
+						} else {
+							descuento += 35;
+						}
+					}
+					e.setDescuento(descuento);
+					e.setPrecio(precioEntrada);
+					
+					
+					e.setFechaCompra(fechaCompra.format(fecha));
+					
+					e.setVip(true);
 					ec.nuevo(e);
 					ev.echo("Entrada insertada correctamente");
 					ret = 1;
 					break;
 				case "no":
+					int idCliente = ClienteVista.nuevo();
+					e.setIdCliente(idCliente);
+					e.setTipo(Entrada.TIPO_GENERAL);
+					e.setPrecio(79);
+					e.setFechaCompra(fechaCompra.format(fecha));
+					e.setDescuento(1);
+					e.setVip(false);
+					ec.nuevo(e);
+					ev.echo("Entrada creada correctamente");
+					ret = 1;
 					break;
 			}
 			
 		} else {
+			ev.echo("NO existe cliente con el DNI indicado, vamos a crearlo");
 			int idCliente = ClienteVista.nuevo();
 			e.setIdCliente(idCliente);
 			e.setTipo(Entrada.TIPO_GENERAL);
 			e.setPrecio(79);
-			Date fecha = new Date();
-			DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
 			e.setFechaCompra(fechaCompra.format(fecha));
 			e.setDescuento(1);
 			e.setVip(false);
 			ec.nuevo(e);
-			ev.echo("Entrada insertada correctamente");
+			ev.echo("Entrada creada correctamente");
 			ret = 1;
 			
 		}
-		/*
-		// insertamos el cliente nuevo
-		int idCliente = ClienteVista.nuevo();
-		
-		// si se crea el cliente, entonces creamos la entrada
-		if(idCliente > 0) {
-			e.setIdCliente(idCliente);
-			e.setTipo(Entrada.TIPO_GENERAL);
-			e.setPrecio(79);
-			Date fecha = new Date();
-			DateFormat fechaCompra = new SimpleDateFormat("dd/MM/yyyy");
-			//String fechaCompra = fecha.getDay()+"-"+fecha.getMonth()+"-"+fecha.getYear();
-			e.setFechaCompra(fechaCompra.format(fecha));
-			e.setDescuento(1);
-			e.setVip(true);
-			
-			// luego de setear todos los campos de la entrada, ahora la grabamos en su archivo correspondiente
-			ec.nuevo(e);
-			ret = 1;
-			
-		} else {
-			ret = idCliente;
-		}
-		*/
 		
 		return ret;
 	}

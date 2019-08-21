@@ -40,6 +40,10 @@ public class Entrada {
 	 */
 	private int descuento = 0;
 	
+	/**
+	 * es el precio base menos el descuento aplicado (en Euros)
+	 */
+	private double precioFinal = 60;
 	
 	
 	/**
@@ -49,28 +53,16 @@ public class Entrada {
 	
 	public Entrada() {}
 	
-	public Entrada(int idCliente, String fechaCompra) {
-		setIdCliente(idCliente);
-		setFechaCompra(fechaCompra);
-	}
 	
-	public Entrada(int idCliente, int tipo, double precio, String fechaCompra, int descuento, boolean isVIP) {
-		setIdCliente(idCliente);
-		setTipo(tipo);
-		setPrecio(precio);
-		setFechaCompra(fechaCompra);
-		setDescuento(descuento);
-		setVip(isVIP);		
-	}
-	
-	public Entrada(int id, int idCliente, int tipo, double precio, String fechaCompra, int descuento, boolean isVIP) {
+	public Entrada(int id, int idCliente, int tipo, double precio, int descuento, boolean isVIP, String fechaCompra) {
 		setId(id);
 		setIdCliente(idCliente);
 		setTipo(tipo);
 		setPrecio(precio);
-		setFechaCompra(fechaCompra);
 		setDescuento(descuento);
-		setVip(isVIP);		
+		setPrecioFinal(precio - ( (precio * descuento) /100) );
+		setVip(isVIP);
+		setFechaCompra(fechaCompra);
 	}
 	
 
@@ -113,6 +105,14 @@ public class Entrada {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
+	public double getPrecioFianl() {
+		return precioFinal;
+	}
+
+	public void setPrecioFinal(double precioF) {
+		this.precioFinal = precioF;
+	}
 
 	public String getFechaCompra() {
 		return fechaCompra;
@@ -131,7 +131,7 @@ public class Entrada {
 	}
 	
 	public String toString() {
-		return getId()+", "+getIdCliente()+", "+getTipo()+", "+getPrecio()+", "+getFechaCompra()+", "+getDescuento()+", "+isVip();
+		return getId()+", "+getIdCliente()+", "+getTipo()+", "+getPrecio()+", "+getDescuento()+", "+getPrecioFianl()+", "+isVip()+", "+getFechaCompra();
 	}
 
 }
