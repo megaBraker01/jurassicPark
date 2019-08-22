@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import controlador.ClienteControlador;
 import controlador.EntradaControlador;
 import modelo.Cliente;
 import modelo.Entrada;
@@ -78,6 +79,7 @@ public class EntradaVista extends Herramientas {
 	
 	public static int nuevo() {	
 		EntradaControlador ec = new EntradaControlador("entradas.txt");
+		ClienteControlador clienteController = new ClienteControlador("clientes.txt");
 		EntradaVista ev = new EntradaVista();
 		int ret = 0;
 		Scanner sc = new Scanner(System.in);
@@ -95,92 +97,76 @@ public class EntradaVista extends Herramientas {
 			String respuesta = sc.nextLine().toLowerCase();
 			switch(respuesta) {
 				case "si":
-					e.setIdCliente(cli.getId());
-					ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
-					String tipoEntrada = sc.nextLine().toLowerCase();
-					ev.echo("Es cliente VIP? (si, no)");
-					String esVIP = sc.nextLine().toLowerCase();
-					switch(tipoEntrada) {
-						case "1":
-							e.setTipo(Entrada.TIPO_GENERAL);
-							break;
-						case "2":
-							e.setTipo(Entrada.TIPO_LABORABLE);
-							/**
-							 * este tipo de entrada es 10% menor que la entrada general
-							 */
-							precioEntrada = precioEntrada - ((precioEntrada * 10)/100);
-							break;
-						case "3":
-							/**
-							 * este tipo de entrada es 20% menor que la entrada general
-							 */
-							precioEntrada = precioEntrada - ((precioEntrada * 20)/100);
-							e.setTipo(Entrada.TIPO_TARDE);
-							break;
-						case "4":
-							/**
-							 * este tipo de entrada es 8% menor que la entrada general
-							 */
-							precioEntrada = precioEntrada - ((precioEntrada * 8)/100);
-							e.setTipo(Entrada.TIPO_FAMILIAR);
-							break;
-						default:
-							e.setTipo(Entrada.TIPO_GENERAL);
-							break;
-					}
-					
-					/**
-					 * si es VIP no se le aplica descuento
-					 */
-					if(esVIP.equals("si")) {
-						precioEntrada += 50;
-					} else {
-						if(cli.getEdad() < 18) {
-							descuento += 50;
-						} else {
-							descuento += 35;
-						}
-					}
-					e.setDescuento(descuento);
-					e.setPrecio(precioEntrada);
-					
-					
-					e.setFechaCompra(fechaCompra.format(fecha));
-					
-					e.setVip(true);
-					ec.nuevo(e);
-					ev.echo("Entrada insertada correctamente");
-					ret = 1;
+					e.setIdCliente(cli.getId());					
 					break;
 				case "no":
 					int idCliente = ClienteVista.nuevo();
+					cli = clienteController.buscarPorId(idCliente);
 					e.setIdCliente(idCliente);
-					e.setTipo(Entrada.TIPO_GENERAL);
-					e.setPrecio(79);
-					e.setFechaCompra(fechaCompra.format(fecha));
-					e.setDescuento(1);
-					e.setVip(false);
-					ec.nuevo(e);
-					ev.echo("Entrada creada correctamente");
-					ret = 1;
 					break;
 			}
-			
 		} else {
 			ev.echo("NO existe cliente con el DNI indicado, vamos a crearlo");
 			int idCliente = ClienteVista.nuevo();
+			cli = clienteController.buscarPorId(idCliente);
 			e.setIdCliente(idCliente);
-			e.setTipo(Entrada.TIPO_GENERAL);
-			e.setPrecio(79);
-			e.setFechaCompra(fechaCompra.format(fecha));
-			e.setDescuento(1);
-			e.setVip(false);
-			ec.nuevo(e);
-			ev.echo("Entrada creada correctamente");
-			ret = 1;
-			
 		}
+		
+		ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
+		String tipoEntrada = sc.nextLine().toLowerCase();
+		ev.echo("Es cliente VIP? (si, no)");
+		String esVIP = sc.nextLine().toLowerCase();
+		switch(tipoEntrada) {
+			case "1":
+				e.setTipo(Entrada.TIPO_GENERAL);
+				break;
+			case "2":
+				e.setTipo(Entrada.TIPO_LABORABLE);
+				/**
+				 * este tipo de entrada es 10% menor que la entrada general
+				 */
+				precioEntrada = precioEntrada - ((precioEntrada * 10)/100);
+				break;
+			case "3":
+				/**
+				 * este tipo de entrada es 20% menor que la entrada general
+				 */
+				precioEntrada = precioEntrada - ((precioEntrada * 20)/100);
+				e.setTipo(Entrada.TIPO_TARDE);
+				break;
+			case "4":
+				/**
+				 * este tipo de entrada es 8% menor que la entrada general
+				 */
+				precioEntrada = precioEntrada - ((precioEntrada * 8)/100);
+				e.setTipo(Entrada.TIPO_FAMILIAR);
+				break;
+			default:
+				e.setTipo(Entrada.TIPO_GENERAL);
+				break;
+		}
+		
+		/**
+		 * si es VIP NO se le aplica descuento
+		 */
+		if(esVIP.equals("si")) {
+			precioEntrada += 50;
+			e.setVip(true);
+		} else {
+			if(cli.getEdad() < 18) {
+				descuento += 50;
+			} else {
+				descuento += 35;
+			}
+		}
+		e.setDescuento(descuento);
+		e.setPrecio(precioEntrada);
+		double precioF = precioEntrada + ((precioEntrada * descuento) / 100);
+		e.setPrecioFinal(precioF);
+		e.setFechaCompra(fechaCompra.format(fecha));
+		ec.nuevo(e);
+		ev.echo("Entrada insertada correctamente");
+		ret = 1;
 		
 		return ret;
 	}
