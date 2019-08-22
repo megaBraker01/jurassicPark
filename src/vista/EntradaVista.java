@@ -74,9 +74,13 @@ public class EntradaVista extends Herramientas {
 	}
 	
 	public String mostrarMenuLista() {
-		return "\n[ID] [IDCLIENTE] [TIPO] [PRECIO] [DESCUENTO] [PRECIO FINAL] [ESVIP?] [FECHA DE LA COMPRA]";
+		return "\n[ID] [IDCLIENTE] [NOMBRE] [TIPO] [PRECIO] [DESCUENTO] [PRECIO FINAL] [ESVIP?] [FECHA COMPRA]";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static int nuevo() {	
 		EntradaControlador ec = new EntradaControlador("entradas.txt");
 		ClienteControlador clienteController = new ClienteControlador("clientes.txt");
@@ -97,12 +101,14 @@ public class EntradaVista extends Herramientas {
 			String respuesta = sc.nextLine().toLowerCase();
 			switch(respuesta) {
 				case "si":
-					e.setIdCliente(cli.getId());					
+					e.setIdCliente(cli.getId());	
+					e.setNombreCliente(cli.getNombreCompleto());
 					break;
 				case "no":
 					int idCliente = ClienteVista.nuevo();
 					cli = clienteController.buscarPorId(idCliente);
 					e.setIdCliente(idCliente);
+					e.setNombreCliente(cli.getNombreCompleto());
 					break;
 			}
 		} else {
@@ -110,6 +116,7 @@ public class EntradaVista extends Herramientas {
 			int idCliente = ClienteVista.nuevo();
 			cli = clienteController.buscarPorId(idCliente);
 			e.setIdCliente(idCliente);
+			e.setNombreCliente(cli.getNombreCompleto());
 		}
 		
 		ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
@@ -161,11 +168,11 @@ public class EntradaVista extends Herramientas {
 		}
 		e.setDescuento(descuento);
 		e.setPrecio(precioEntrada);
-		double precioF = precioEntrada + ((precioEntrada * descuento) / 100);
-		e.setPrecioFinal(precioF);
 		e.setFechaCompra(fechaCompra.format(fecha));
 		ec.nuevo(e);
 		ev.echo("Entrada insertada correctamente");
+		ev.echo(ev.mostrarMenuLista());
+		ev.echo(e);
 		ret = 1;
 		
 		return ret;

@@ -32,11 +32,12 @@ public class EntradaControlador {
 				Entrada Entrada = new Entrada(
 						Integer.parseInt(campos[0].trim()), 
 						Integer.parseInt(campos[1].trim()),
-						Integer.parseInt(campos[2].trim()),
-						Double.parseDouble(campos[3]),
-						Integer.parseInt(campos[4].trim()),
-						Boolean.parseBoolean(campos[6]),
-						campos[7]
+						campos[2].trim(),
+						Integer.parseInt(campos[3].trim()),
+						Double.parseDouble(campos[4]),
+						Integer.parseInt(campos[5].trim()),
+						Boolean.parseBoolean(campos[7]),
+						campos[8]
 								);
 				lista.add(Entrada);
 				
@@ -66,11 +67,11 @@ public class EntradaControlador {
 		int ultimoID = 0;
 		if(ArchivoControlador.existe(ARCHIVO)) {
 			String archivo = ArchivoControlador.leer(ARCHIVO);
-			String[] fila = archivo.split("\n");			
-			if(fila.length > 0) {
-				int ultimo = fila.length-1;
-				String[] campoid = fila[ultimo].split(", ");
-				ultimoID = Integer.parseInt(campoid[0]);
+			String[] filas = archivo.split("\n");			
+			if(filas.length > 0) {
+				int ultimo = filas.length-1;
+				String[] campoid = filas[ultimo].split(", ");
+				ultimoID = (!campoid[0].isEmpty()) ? Integer.parseInt(campoid[0]) : 0 ;
 			}
 		}
 		

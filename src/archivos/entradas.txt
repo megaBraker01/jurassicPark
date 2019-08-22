@@ -1,2 +1,9 @@
-1, 60, 1, 60.0, 35, 60.0, true, 21-08-2019
-2, 56, 1, 110.0, 0, 110.0, true, 22-08-2019
+1, 58, nefer ramirez pelayo, 1, 60.0, 35, 81.0, false, 22-08-2019
+2, 58, nefer ramirez pelayo, 2, 54.0, 35, 72.9000015258789, false, 22-08-2019
+3, 59, valentina machuca, 3, 48.0, 35, 31.2, false, 22-08-2019
+4, 60, beatriz arderius, 1, 60.00, 35, 39.00, false, 22-08-2019
+5, 61, beatriz almanzar, 2, 1.04, 0, 1.04, true, 22-08-2019
+6, 61, beatriz almanzar, 2, 1.04, 0, 1.04, true, 22-08-2019
+7, 61, beatriz almanzar, 3, 98, 0, 98, true, 22-08-2019
+8, 62, beatriz maotina, 1, 1.10, 0, 1.10, true, 22-08-2019
+9, 63, paula moreno gimenez, 1, 110.00, 0, 110.00, true, 22-08-2019

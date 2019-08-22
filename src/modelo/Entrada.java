@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Rafael Perez Sanchez
  *
@@ -13,6 +15,11 @@ public class Entrada {
 	 * que le pertenece la entra
 	 */
 	private int idCliente;
+	
+	/**
+	 * indica el nombre completo del cliente
+	 */
+	private String nombreCliente;
 	
 	/**
 	 * indica el tipo de entrada: (por defecto 1 > general)
@@ -39,13 +46,7 @@ public class Entrada {
 	 * descuento que se le aplica
 	 */
 	private int descuento = 0;
-	
-	/**
-	 * es el precio base menos el descuento aplicado (en Euros)
-	 */
-	private double precioFinal = 60;
-	
-	
+		
 	/**
 	 * indica si tiene el suplemento VIP
 	 */
@@ -54,13 +55,13 @@ public class Entrada {
 	public Entrada() {}
 	
 	
-	public Entrada(int id, int idCliente, int tipo, double precio, int descuento, boolean isVIP, String fechaCompra) {
+	public Entrada(int id, int idCliente, String nombreCliente, int tipo, double precio, int descuento, boolean isVIP, String fechaCompra) {
 		setId(id);
 		setIdCliente(idCliente);
+		setNombreCliente(nombreCliente);
 		setTipo(tipo);
 		setPrecio(precio);
 		setDescuento(descuento);
-		setPrecioFinal(precio - ( (precio * descuento) /100) );
 		setVip(isVIP);
 		setFechaCompra(fechaCompra);
 	}
@@ -97,6 +98,14 @@ public class Entrada {
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
+	
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
 
 	public double getPrecio() {
 		return precio;
@@ -107,11 +116,7 @@ public class Entrada {
 	}
 	
 	public double getPrecioFianl() {
-		return precioFinal;
-	}
-
-	public void setPrecioFinal(double precioF) {
-		this.precioFinal = precioF;
+		return precio - ( (precio * descuento) /100);
 	}
 
 	public String getFechaCompra() {
@@ -131,7 +136,7 @@ public class Entrada {
 	}
 	
 	public String toString() {
-		return getId()+", "+getIdCliente()+", "+getTipo()+", "+getPrecio()+", "+getDescuento()+", "+getPrecioFianl()+", "+isVip()+", "+getFechaCompra();
+		return getId()+", "+getIdCliente()+", "+getNombreCliente()+", "+getTipo()+", "+getPrecio()+", "+getDescuento()+", "+getPrecioFianl()+", "+isVip()+", "+getFechaCompra();
 	}
 
 }

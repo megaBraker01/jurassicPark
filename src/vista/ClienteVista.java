@@ -59,45 +59,6 @@ public class ClienteVista extends Herramientas {
 						ClienteVista.nuevo();
 					}
 					break;
-					//cv.echo("Indique los tados del nuevo cliente");
-					
-					/*
-					Scanner sc = new Scanner(System.in);
-					p = new Cliente();
-					
-					cv.echo("Nombre:");
-					nombre = sc.nextLine();
-					if(!nombre.isEmpty() && !nombre.equals("")) {
-						p.setNombreCompleto(nombre);
-					}
-					
-					cv.echo("DNI:");
-					dni = sc.nextLine();
-					if(!dni.isEmpty() && !dni.equals("")) {
-						Persona p2 = new Cliente();
-						p2 = cc.buscarPordni(dni);						
-						if(p2 != null) {
-							cv.echo("[ADVERTENCIA!!] ya existe un registro con este DNI");
-							cv.echo(p2);
-							break;
-						} else {
-							p.setDni(dni);
-						}
-					} else {
-						cv.echo("[ERROR] El DNI no puede estar vacio");
-						break;
-					}
-					
-					cv.echo("Edad:");
-					edad = sc.nextLine();
-					if(!edad.isEmpty() && !edad.equals("")) {
-						p.setEdad(Integer.parseInt(edad));
-					}
-					
-					cc.nuevo(p);
-					cv.echo("Cliente insertado correctamente");
-					break;
-					*/
 					
 				case "edit":
 					
