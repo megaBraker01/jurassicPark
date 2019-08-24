@@ -73,7 +73,6 @@ public class ArchivoControlador {
 			System.out.println("No hay nada para leer en el directorio:\n"+ruta);
 			if(path.contains(".")) {
 				String[] documento = path.split("\\.");
-				int numero = documento.length;
 				ArchivoControlador.crear(documento[0], documento[1], null);
 			}			
 		}

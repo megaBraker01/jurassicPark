@@ -74,7 +74,7 @@ public class EntradaVista extends Herramientas {
 	}
 	
 	public String mostrarMenuLista() {
-		return "\n[ID] [IDCLIENTE] [NOMBRE] [TIPO] [PRECIO] [DESCUENTO] [PRECIO FINAL] [ESVIP?] [FECHA COMPRA]";
+		return "\n[ID] [IDCLIENTE] [NOMBRE] [ESVIP?] [TIPO] [TEMPORADA] [PRECIO] [DESCUENTO] [PRECIO FINAL] [FECHA COMPRA]";
 	}
 	
 	/**
@@ -82,18 +82,16 @@ public class EntradaVista extends Herramientas {
 	 * @return
 	 */
 	public static int nuevo() {	
+		
 		EntradaControlador ec = new EntradaControlador("entradas.txt");
 		ClienteControlador clienteController = new ClienteControlador("clientes.txt");
 		EntradaVista ev = new EntradaVista();
 		int ret = 0;
 		Scanner sc = new Scanner(System.in);
-		Entrada e = new Entrada();
+		
 		ev.echo("Indique el DNI del cliente");
-		Persona cli = ClienteVista.buscar();
-		Date fecha = new Date();
-		DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
-		float precioEntrada = 60;
-		int descuento = 0;
+		Cliente cli = (Cliente) ClienteVista.buscar();
+		int idCliente = 0;
 		if(cli != null) {
 			ev.echo("Ya existe un cliente con el DNI indicado");
 			ev.echo(cli);
@@ -101,79 +99,48 @@ public class EntradaVista extends Herramientas {
 			String respuesta = sc.nextLine().toLowerCase();
 			switch(respuesta) {
 				case "si":
-					e.setIdCliente(cli.getId());	
-					e.setNombreCliente(cli.getNombreCompleto());
+				case "s":
+					idCliente = cli.getId();
 					break;
 				case "no":
-					int idCliente = ClienteVista.nuevo();
-					cli = clienteController.buscarPorId(idCliente);
-					e.setIdCliente(idCliente);
-					e.setNombreCliente(cli.getNombreCompleto());
+				case "n":
+					idCliente = ClienteVista.nuevo();
+					break;
+				default:
+					idCliente = cli.getId();
 					break;
 			}
 		} else {
 			ev.echo("NO existe cliente con el DNI indicado, vamos a crearlo");
-			int idCliente = ClienteVista.nuevo();
-			cli = clienteController.buscarPorId(idCliente);
-			e.setIdCliente(idCliente);
-			e.setNombreCliente(cli.getNombreCompleto());
+			idCliente = ClienteVista.nuevo();
 		}
 		
-		ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
-		String tipoEntrada = sc.nextLine().toLowerCase();
-		ev.echo("Es cliente VIP? (si, no)");
-		String esVIP = sc.nextLine().toLowerCase();
-		switch(tipoEntrada) {
-			case "1":
-				e.setTipo(Entrada.TIPO_GENERAL);
-				break;
-			case "2":
-				e.setTipo(Entrada.TIPO_LABORABLE);
-				/**
-				 * este tipo de entrada es 10% menor que la entrada general
-				 */
-				precioEntrada = precioEntrada - ((precioEntrada * 10)/100);
-				break;
-			case "3":
-				/**
-				 * este tipo de entrada es 20% menor que la entrada general
-				 */
-				precioEntrada = precioEntrada - ((precioEntrada * 20)/100);
-				e.setTipo(Entrada.TIPO_TARDE);
-				break;
-			case "4":
-				/**
-				 * este tipo de entrada es 8% menor que la entrada general
-				 */
-				precioEntrada = precioEntrada - ((precioEntrada * 8)/100);
-				e.setTipo(Entrada.TIPO_FAMILIAR);
-				break;
-			default:
-				e.setTipo(Entrada.TIPO_GENERAL);
-				break;
-		}
-		
-		/**
-		 * si es VIP NO se le aplica descuento
-		 */
-		if(esVIP.equals("si")) {
-			precioEntrada += 50;
-			e.setVip(true);
+		if(-1 == idCliente) {
+			ret = idCliente;
 		} else {
-			if(cli.getEdad() < 18) {
-				descuento += 50;
-			} else {
-				descuento += 35;
-			}
+			cli = (Cliente) clienteController.buscarPorId(idCliente);
+			
+			ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
+			String entrada = sc.nextLine();
+			int tipoEntrada = (entrada.equals("")) ? 1 :  Integer.parseInt(entrada);
+			
+			ev.echo("Es cliente VIP? (si, no)");
+			boolean esVIP = "si".equals(sc.nextLine().toLowerCase());
+			
+			ev.echo("Indique la temporada (1 = baja, 2 = media, 3 = alta)");
+			String temp = sc.nextLine().trim();
+			int temporada = (temp.equals("")) ? 2 : Integer.parseInt(temp);
+			
+			Entrada e = ec.validador(cli, esVIP, tipoEntrada, temporada);
+			Date fecha = new Date();
+			DateFormat fechaCompra = new SimpleDateFormat("dd-MM-yyyy");
+			e.setFechaCompra(fechaCompra.format(fecha));
+			ec.nuevo(e);
+			ev.echo("Entrada insertada correctamente");
+			ev.echo(ev.mostrarMenuLista());
+			ev.echo(e);
+			ret = 1;
 		}
-		e.setDescuento(descuento);
-		e.setPrecio(precioEntrada);
-		e.setFechaCompra(fechaCompra.format(fecha));
-		ec.nuevo(e);
-		ev.echo("Entrada insertada correctamente");
-		ev.echo(ev.mostrarMenuLista());
-		ev.echo(e);
-		ret = 1;
 		
 		return ret;
 	}

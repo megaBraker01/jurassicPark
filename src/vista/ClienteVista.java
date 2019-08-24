@@ -116,8 +116,8 @@ public class ClienteVista extends Herramientas {
 		return false;
 	}
 	
-	public static Persona buscar () {
-		Persona ret = null;
+	public static Cliente buscar () {
+		Cliente ret = null;
 		Scanner sc = new Scanner(System.in);
 		ClienteControlador cc = new ClienteControlador("clientes.txt");
 		ClienteVista cv = new ClienteVista();
@@ -126,7 +126,7 @@ public class ClienteVista extends Herramientas {
 		dni = sc.nextLine();
 		
 		if(!dni.isEmpty() && !dni.equals("")) {
-			ret = cc.buscarPordni(dni);
+			ret = (Cliente) cc.buscarPordni(dni);
 		} else {
 			cv.echo("[ERROR] El DNI no puede estar vacio");
 		}
