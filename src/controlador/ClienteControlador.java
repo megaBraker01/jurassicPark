@@ -41,7 +41,7 @@ public class ClienteControlador extends PersonaControlador {
 	}
 	
 	/**
-	 * busca en el fichero especificado en la constante ARCHIVO
+	 * busca en el fichero especificado en la variable ARCHIVO
 	 * y retorna un objeco si el parametro id coincide con alguno del fichero
 	 * retorna null si no
 	 * @param id

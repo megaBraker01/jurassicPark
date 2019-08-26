@@ -14,20 +14,15 @@ public class Atraccion {
 	 * los posibles tipos de atracciones que pueden haber
 	 * indicando la cantidad de ayudantes necesarios
 	 * para que la atraccion funcione 
+	 * A = 6, B = 5, C = 3, D = 5, E = 7
 	 */
-	public static final int A = 6, B = 5, C = 3, D = 5, E = 7;
+	public static final char TIPO_A = 'A', TIPO_B = 'B', TIPO_C = 'C', TIPO_D = 'D', TIPO_E = 'E';
 	
 	/**
 	 * indica el tipo de atraccion que es.
 	 * sus valores permitidos son A, B, C, D, E
 	 */
-	private char tipo;
-	
-	/**
-	 * indica la cantidad de ayudantes necesarios para
-	 * que la atraccion pueda funcionar
-	 */
-	private int ayudantes;
+	private char tipo = TIPO_A;
 	
 	/**
 	 * indica si la atraccion se puede poner en marcha,
@@ -46,23 +41,12 @@ public class Atraccion {
 	public Atraccion() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-
-	public Atraccion(String nombre, char tipo, int ayudantes, boolean disponible) {
-		this.nombre = nombre;
-		this.tipo = tipo;
-		this.ayudantes = ayudantes;
-		this.disponible = disponible;
-	}
 
 
-
-	public Atraccion(int id, String nombre, char tipo, int ayudantes, boolean disponible) {
+	public Atraccion(int id, String nombre, char tipo, boolean disponible) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.ayudantes = ayudantes;
 		this.disponible = disponible;
 	}
 
@@ -105,19 +89,31 @@ public class Atraccion {
 
 
 	public int getAyudantes() {
-		return ayudantes;
+		int ret;
+		switch(this.tipo) {
+		case TIPO_A:
+			ret = 6;
+			break;
+		case TIPO_B:
+		case TIPO_D:
+			ret = 5;
+			break;
+		case TIPO_C:
+			ret = 3;
+			break;
+		case TIPO_E:
+			ret = 7;
+			break;
+		default:
+			ret = 6;
+			break;
+		}
+		return ret;
 	}
-
-
-
-	public void setAyudantes(int ayudantes) {
-		this.ayudantes = ayudantes;
-	}
-
 
 
 	public boolean isDisponible() {
-		return disponible;
+		return this.disponible;
 	}
 
 
@@ -140,7 +136,7 @@ public class Atraccion {
 	
 	
 	public String toString() {
-		return "Nombre: " +getNombre()+ " Tipo: " +getTipo()+ " Encendida?: " +isEnciendida();
+		return getId()+ ", " +getNombre()+ ", " +getTipo()+ ", " +getAyudantes()+ ", " + isDisponible();
 	}
 
 }

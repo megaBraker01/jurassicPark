@@ -1,0 +1,5 @@
+1, el mata perro, A, 6, true
+2, pata 5000, B, 5, true
+3, salto infernal, A, 6, true
+4, muerte 3000, B, 5, true
+5, avismo, C, 3, false

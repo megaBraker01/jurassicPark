@@ -31,8 +31,7 @@ public class InicioVista {
 					ClienteVista.main(null);
 					break;
 				case "atr":
-					m.echo("has elegido la opcion Atracciones");
-					continuar = false;
+					AtraccionVista.main(null);
 					break;
 				case "emp":
 					EmpleadoVista.main(null);

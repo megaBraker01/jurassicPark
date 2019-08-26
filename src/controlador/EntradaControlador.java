@@ -27,7 +27,7 @@ public class EntradaControlador {
 		String archivo = ArchivoControlador.leer(ARCHIVO);
 		String[] fila = archivo.split("\n");
 		List<Entrada> lista = new ArrayList<>();
-		if(fila.length > 0) {
+		if(fila.length > 0 && !archivo.equals("")) {
 			for(String registros : fila) {
 				String[] campos = registros.split(", ");
 				Entrada Entrada = new Entrada(

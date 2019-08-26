@@ -33,7 +33,7 @@ public class EntradaVista extends Herramientas {
 		boolean continuar = true;		
 		while(continuar) {
 			
-			ev.echo("\n-[Entradas]-");		
+			ev.echo("\n-["+seccion.toUpperCase()+"]-");		
 			ev.crudMenu();
 			ev.echo("elige una opcion:_");
 			
@@ -54,11 +54,12 @@ public class EntradaVista extends Herramientas {
 					
 				case "new":
 					EntradaVista.nuevo();
+					break;
 				case "edit":
 					break;
 				case "back":
 					
-					ev.echo("Saliendo de la seccion [Entrada]");
+					ev.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
