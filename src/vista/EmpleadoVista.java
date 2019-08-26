@@ -16,6 +16,7 @@ import modelo.Persona;
 public class EmpleadoVista extends Herramientas {
 	
 	public static final String SECCION = "empleados";
+	public String menuLista = super.menuLista + " [GRUPO]";
 
 	public EmpleadoVista() {}
 	
@@ -41,11 +42,11 @@ public class EmpleadoVista extends Herramientas {
 			switch(opcion) {
 				case "list":
 					
-					List<Empleado> lista = cc.lista();
+					List<Persona> lista = cc.lista();
 					int total = lista.size();
-					Iterator<Empleado> iterador = lista.iterator();
+					Iterator<Persona> iterador = lista.iterator();
 					cv.echo("Total de "+SECCION+": "+total);
-					cv.echo(cv.mostrarEncabezado());
+					cv.echo(cv.menuLista);
 					while(iterador.hasNext()) {
 						cv.echo(iterador.next().toString());
 					}
@@ -76,7 +77,7 @@ public class EmpleadoVista extends Herramientas {
 						cv.echo("[ERROR] No se ha encontrado al empleado con el DNI: "+ dni);
 					} else {
 						cv.echo("los datos actuales son:");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(p.toString());
 						cv.echo("Editar Nombre:");
 						Scanner sc2 = new Scanner(System.in);
@@ -99,7 +100,7 @@ public class EmpleadoVista extends Herramientas {
 						
 						cc.editar(p);
 						cv.echo("\nLos nuevos datos son:");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(p);
 					}
 					
@@ -110,7 +111,7 @@ public class EmpleadoVista extends Herramientas {
 					emp = EmpleadoVista.buscar();
 					if (emp != null) {
 						cv.echo("Ya existe un empleado con el DNI indicado");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(emp);
 					} else {
 						cv.echo("NO existe empleado con el DNI indicado");

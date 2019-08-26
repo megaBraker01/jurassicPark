@@ -8,6 +8,8 @@ import java.util.Scanner;
  *
  */
 public abstract class Herramientas {
+	public String menuLista = "[ID] [NOMBRE] [EDAD] [DNI]";
+	
 	public void crudMenu() {
 		System.out.println("Listar (list) | Nuevo (new) | Editar (edit) | Buscar (find) | Atras (back)");
 	}

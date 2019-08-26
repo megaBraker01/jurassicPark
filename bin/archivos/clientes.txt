@@ -57,9 +57,9 @@
 57, ramon perez figueroa, 34, 3455345355K
 58, nefer ramirez pelayo, 23, 65454555D
 59, valentina machuca, 29, 323423423T
-60, beatriz arderius, 21, 23458487R
-61, beatriz almanzar, 43, 234584874R
-62, beatriz maotina, 23, 234584874R
+60, rosa arderius, 21, 23458487R
+61, carmen almanzar, 43, 234584874R
+62, beatriz maotina, 23, 234584569R
 63, paula moreno gimenez, 23, 24353453R
 64, angel perez, 32, 03477542B
 65, antonio garcia, 10, 03544896G

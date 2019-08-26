@@ -44,7 +44,7 @@ public class ClienteVista extends Herramientas {
 					int total = lista.size();
 					Iterator<Persona> iterador = lista.iterator();
 					cv.echo("Total de "+SECCION+": "+total);
-					cv.echo(cv.mostrarEncabezado());
+					cv.echo(cv.menuLista);
 					while(iterador.hasNext()) {
 						cv.echo(iterador.next().toString());
 					}
@@ -75,7 +75,7 @@ public class ClienteVista extends Herramientas {
 						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
 					} else {
 						cv.echo("los datos actuales son:");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(p.toString());
 						cv.echo("Editar Nombre:");
 						Scanner sc2 = new Scanner(System.in);
@@ -98,7 +98,7 @@ public class ClienteVista extends Herramientas {
 						
 						cc.editar(p);
 						cv.echo("\nLos nuevos datos son:");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(p);
 					}
 					
@@ -109,7 +109,7 @@ public class ClienteVista extends Herramientas {
 					cli = ClienteVista.buscar();
 					if (cli != null) {
 						cv.echo("Ya existe un cliente con el DNI indicado");
-						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cv.menuLista);
 						cv.echo(cli);
 					} else {
 						cv.echo("NO existe cliente con el DNI indicado");
