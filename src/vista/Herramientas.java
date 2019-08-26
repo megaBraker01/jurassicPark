@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public abstract class Herramientas {
 	public void crudMenu() {
-		System.out.println("Listar (list) | Nuevo (new) | Editar (edit) | Atras (back)");
+		System.out.println("Listar (list) | Nuevo (new) | Editar (edit) | Buscar (find) | Atras (back)");
 	}
 	
 	public String mostrarEncabezado() {

@@ -14,19 +14,21 @@ import modelo.Persona;
  *
  */
 public class ClienteVista extends Herramientas {
+	
+	public static final String SECCION = "clientes";
 
 	public ClienteVista() {}
 	
 	public static boolean main(String[] args) {
-		String seccion = "clientes";
 		ClienteVista cv = new ClienteVista();		
-		ClienteControlador cc = new ClienteControlador(seccion+".txt");
+		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
+		Persona cli;
 		boolean continuar = true;		
 		while(continuar) {
 			
-			cv.echo("\n-["+seccion.toUpperCase()+"]-");		
+			cv.echo("\n-["+SECCION.toUpperCase()+"]-");		
 			cv.crudMenu();
 			cv.echo("elige una opcion:_");
 			
@@ -41,21 +43,23 @@ public class ClienteVista extends Herramientas {
 					List<Persona> lista = cc.lista();
 					int total = lista.size();
 					Iterator<Persona> iterador = lista.iterator();
-					cv.echo("Total de "+seccion+": "+total);
+					cv.echo("Total de "+SECCION+": "+total);
 					cv.echo(cv.mostrarEncabezado());
 					while(iterador.hasNext()) {
 						cv.echo(iterador.next().toString());
 					}
-					cv.echo("Total de "+seccion+": "+total);
+					cv.echo("Total de "+SECCION+": "+total);
 					break;
 					
 				case "new":
+					
 					cv.echo("indique el DNI del cliente");
-					Persona cli = ClienteVista.buscar();
+					cli = ClienteVista.buscar();
 					if (cli != null) {
 						cv.echo("Ya existe un cliente con el DNI indicado");
 						cv.echo(cli);
 					} else {
+						cv.echo("NO existe cliente con el DNI indicado, vamos a crearlo");
 						ClienteVista.nuevo();
 					}
 					break;
@@ -99,11 +103,23 @@ public class ClienteVista extends Herramientas {
 					}
 					
 					break;
-				case "find": /* de momento no hace nada*/
+				case "find":
+
+					cv.echo("indique el DNI del cliente");
+					cli = ClienteVista.buscar();
+					if (cli != null) {
+						cv.echo("Ya existe un cliente con el DNI indicado");
+						cv.echo(cv.mostrarEncabezado());
+						cv.echo(cli);
+					} else {
+						cv.echo("NO existe cliente con el DNI indicado");
+						//ClienteVista.nuevo();
+					}
+					
 					break;
 				case "back":
 					
-					cv.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
+					cv.echo("Saliendo de la seccion ["+SECCION.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
@@ -119,7 +135,7 @@ public class ClienteVista extends Herramientas {
 	public static Cliente buscar () {
 		Cliente ret = null;
 		Scanner sc = new Scanner(System.in);
-		ClienteControlador cc = new ClienteControlador("clientes.txt");
+		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
 		ClienteVista cv = new ClienteVista();
 		String dni;
 		cv.echo("DNI:");
@@ -141,7 +157,7 @@ public class ClienteVista extends Herramientas {
 		String dni;
 		String edad;
 		ClienteVista cv = new ClienteVista();
-		ClienteControlador cc = new ClienteControlador("clientes.txt");
+		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
 		p = new Cliente();		
 		cv.echo("DNI:");
 		dni = sc.nextLine();

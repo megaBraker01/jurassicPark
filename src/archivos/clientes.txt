@@ -62,3 +62,4 @@
 62, beatriz maotina, 23, 234584874R
 63, paula moreno gimenez, 23, 24353453R
 64, angel perez, 32, 03477542B
+65, antonio garcia, 10, 03544896G

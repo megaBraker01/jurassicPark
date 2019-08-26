@@ -15,7 +15,9 @@ public class Empleado extends Persona implements personaInterfaz {
 	 * 3 = Responsable de atraccion
 	 * 4 = Ayudante de atraccion
 	 */
-	private int grupo;
+	private int grupo = 4;
+	
+	public Empleado() {}
 	
 	public Empleado(String nombre, int edad) {
 		super(nombre, edad);

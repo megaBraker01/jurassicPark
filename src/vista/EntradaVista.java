@@ -11,7 +11,6 @@ import controlador.ClienteControlador;
 import controlador.EntradaControlador;
 import modelo.Cliente;
 import modelo.Entrada;
-import modelo.Persona;
 
 /**
  * @author Rafael Perez Sanchez
@@ -39,7 +38,6 @@ public class EntradaVista extends Herramientas {
 			ev.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
-			Entrada e;
 			switch(opcion) {
 				case "list":
 					List<Entrada> lista = ec.lista();
