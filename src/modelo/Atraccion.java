@@ -44,10 +44,10 @@ public class Atraccion {
 
 
 	public Atraccion(int id, String nombre, char tipo, boolean disponible) {
-		this.id = id;
-		this.nombre = nombre;
-		this.tipo = tipo;
-		this.disponible = disponible;
+		this.setId(id);
+		this.setNombre(nombre);
+		this.setTipo(tipo);
+		this.setDisponible(disponible);
 	}
 
 
@@ -83,7 +83,16 @@ public class Atraccion {
 
 
 	public void setTipo(char tipo) {
-		this.tipo = tipo;
+		
+		switch(tipo) {
+		case TIPO_A:
+		case TIPO_B:
+		case TIPO_D:
+		case TIPO_C:
+		case TIPO_E:
+			this.tipo = tipo;
+			break;
+		}
 	}
 
 
