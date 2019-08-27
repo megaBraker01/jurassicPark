@@ -34,7 +34,7 @@ public class EntradaVista extends Herramientas {
 		while(continuar) {
 			
 			ev.echo("\n-["+seccion.toUpperCase()+"]-");		
-			ev.crudMenu();
+			ev.echo(ev.crudMenu());
 			ev.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();

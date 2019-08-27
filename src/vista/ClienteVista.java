@@ -29,7 +29,7 @@ public class ClienteVista extends Herramientas {
 		while(continuar) {
 			
 			cv.echo("\n-["+SECCION.toUpperCase()+"]-");		
-			cv.crudMenu();
+			cv.echo(cv.crudMenu());
 			cv.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();

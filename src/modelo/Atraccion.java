@@ -83,7 +83,16 @@ public class Atraccion {
 
 
 	public void setTipo(char tipo) {
-		this.tipo = tipo;
+		switch(tipo) {
+			case TIPO_A:
+			case TIPO_B:
+			case TIPO_D:
+			case TIPO_C:
+			case TIPO_E:
+				this.tipo = tipo;
+				break;
+		}
+		
 	}
 
 
