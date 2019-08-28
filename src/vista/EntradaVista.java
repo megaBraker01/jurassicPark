@@ -17,6 +17,8 @@ import modelo.Entrada;
  *
  */
 public class EntradaVista extends Herramientas {
+	
+	public String menuLista = "[ID] [IDCLIENTE] [NOMBRE] [ESVIP?] [TIPO] [TEMPORADA] [PRECIO] [DESCUENTO] [PRECIO FINAL] [FECHA COMPRA]";
 
 	public EntradaVista() {
 	}
@@ -44,11 +46,11 @@ public class EntradaVista extends Herramientas {
 					Iterator<Entrada> iterador = lista.iterator();
 					int total = lista.size();
 					ev.echo("Total de "+seccion+": "+total);
-					ev.echo(ev.mostrarMenuLista());
+					ev.echo(ev.menuLista);
 					while(iterador.hasNext()) {
 						ev.echo(iterador.next().toString());
 					}
-					ev.echo(ev.mostrarMenuLista());
+					ev.echo(ev.menuLista);
 					ev.echo("Total de "+seccion+": "+total);
 					break;
 					
@@ -56,6 +58,10 @@ public class EntradaVista extends Herramientas {
 					EntradaVista.nuevo();
 					break;
 				case "edit":
+					EntradaVista.edit();
+					break;
+				case "find":
+					EntradaVista.buscar();
 					break;
 				case "back":
 					
@@ -72,9 +78,6 @@ public class EntradaVista extends Herramientas {
 		return false;
 	}
 	
-	public String mostrarMenuLista() {
-		return "\n[ID] [IDCLIENTE] [NOMBRE] [ESVIP?] [TIPO] [TEMPORADA] [PRECIO] [DESCUENTO] [PRECIO FINAL] [FECHA COMPRA]";
-	}
 	
 	/**
 	 * 
@@ -119,12 +122,13 @@ public class EntradaVista extends Herramientas {
 		} else {
 			cli = (Cliente) clienteController.buscarPorId(idCliente);
 			
-			ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante),  4 = familiar)");
+			ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante), 4 = familiar)");
 			String entrada = sc.nextLine();
-			int tipoEntrada = (entrada.equals("")) ? 1 :  Integer.parseInt(entrada);
+			int tipoEntrada = (entrada.equals("")) ? 1 : Integer.parseInt(entrada);
 			
 			ev.echo("Es cliente VIP? (si, no)");
-			boolean esVIP = "si".equals(sc.nextLine().toLowerCase());
+			String vip = sc.nextLine().toLowerCase();
+			boolean esVIP = ("si".equals(vip) || "s".equals(vip));
 			
 			ev.echo("Indique la temporada (1 = baja, 2 = media, 3 = alta)");
 			String temp = sc.nextLine().trim();
@@ -136,12 +140,62 @@ public class EntradaVista extends Herramientas {
 			e.setFechaCompra(fechaCompra.format(fecha));
 			ec.nuevo(e);
 			ev.echo("Entrada insertada correctamente");
-			ev.echo(ev.mostrarMenuLista());
+			ev.echo(ev.menuLista);
 			ev.echo(e);
 			ret = 1;
 		}
 		
 		return ret;
+	}
+	
+	public static Entrada buscar() {
+		Entrada Entrada = null;
+		Scanner sc = new Scanner(System.in);
+		EntradaVista h = new EntradaVista();
+		EntradaControlador ec = new EntradaControlador("entradas.txt");
+		h.echo("Indique el ID de la entrada o del cliente");
+		int id = sc.nextInt();
+		Entrada = ec.buscarPorId(id);
+		if(Entrada != null) {
+			h.echo(h.menuLista);
+			h.echo(Entrada);
+		} else {
+			h.echo("No se ha encontrado la entrada");
+		}
+		return Entrada;
+	}
+	
+	public static Entrada edit() {
+		Entrada e = EntradaVista.buscar();
+		if(null != e) {
+			EntradaControlador ec = new EntradaControlador("entradas.txt");
+			ClienteControlador clienteController = new ClienteControlador("clientes.txt");
+			EntradaVista ev = new EntradaVista();
+			Scanner sc = new Scanner(System.in);
+			ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante), 4 = familiar)");
+			String entrada = sc.nextLine();
+			int tipoEntrada = (entrada.equals("")) ? 1 : Integer.parseInt(entrada);
+			
+			ev.echo("Es cliente VIP? (si, no)");
+			String vip = sc.nextLine().toLowerCase();
+			boolean esVIP = ("si".equals(vip) || "s".equals(vip));
+			
+			ev.echo("Indique la temporada (1 = baja, 2 = media, 3 = alta)");
+			String temp = sc.nextLine().trim();
+			int temporada = (temp.equals("")) ? 2 : Integer.parseInt(temp);
+			Cliente cli = (Cliente) clienteController.buscarPorId(e.getIdCliente());
+			String fechaOriginal = e.getFechaCompra();
+			int idOriginal = e.getId();
+			e = ec.validador(cli, esVIP, tipoEntrada, temporada);
+			e.setId(idOriginal);
+			e.setFechaCompra(fechaOriginal);
+			ec.editar(e);
+			ev.echo("Entrada editada correctamente");
+			ev.echo(ev.menuLista);
+			ev.echo(e);
+		}
+		
+		return e;
 	}
 
 }

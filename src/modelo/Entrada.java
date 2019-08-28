@@ -88,7 +88,15 @@ public class Entrada {
 	}
 
 	public void setTipo(int tipo) {
-		this.tipo = tipo;
+		switch(tipo) {
+		case TIPO_GENERAL:
+		case TIPO_LABORABLE:
+		case TIPO_TARDE:
+		case TIPO_FAMILIAR:
+		case TIPO_OTRAS:
+			this.tipo = tipo;
+			break;
+		}
 	}
 
 	public boolean isVip() {
@@ -148,7 +156,13 @@ public class Entrada {
 	}
 
 	public void setTemporada(int temporada) {
-		this.temporada = temporada;
+		switch(temporada) {
+		case TEMP_BAJA:
+		case TEMP_MEDIA:
+		case TEMP_ALTA:
+			this.temporada = temporada;
+			break;
+		}
 	}
 	
 	public String toString() {
