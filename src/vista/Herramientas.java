@@ -10,8 +10,8 @@ import java.util.Scanner;
 public abstract class Herramientas {
 	public String menuLista = "[ID] [NOMBRE] [EDAD] [DNI]";
 	
-	public void crudMenu() {
-		System.out.println("Listar (list) | Nuevo (new) | Editar (edit) | Buscar (find) | Atras (back)");
+	public String crudMenu() {
+		return "Listar (list) | Nuevo (new) | Editar (edit) | Buscar (find) | Atras (back)";
 	}
 	
 	public String mostrarEncabezado() {
@@ -26,6 +26,15 @@ public abstract class Herramientas {
 	
 	public void echo(Object obj) {
 		System.out.println(obj);
+	}
+	
+	public boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
 	}
 	
 	public String opcionElegida() {

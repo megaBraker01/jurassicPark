@@ -50,6 +50,29 @@ public class AtraccionControlador {
 		ArchivoControlador.editar(ARCHIVO, Atraccion.toString());
 	}
 	
+	public void editar(Atraccion Atraccion) {
+		Atraccion existeAtraccion = this.buscarPorId(Atraccion.getId());
+		if(existeAtraccion != null) {
+			String archivo = ArchivoControlador.leer(ARCHIVO);
+			String[] fila = archivo.split("\n");
+			String nuevoContenido = "";
+			for(int i = fila.length - 1; i >= 0; i--) {
+				String registros = fila[i];
+				String[] campos = registros.split(", ");
+				if(Integer.parseInt(campos[0]) == Atraccion.getId()) {
+					fila[i] = Atraccion.toString();
+					break;
+				}
+			}
+			
+			for(int i = 0; i <= fila.length - 1 ; i++) {
+				nuevoContenido += fila[i]+"\n";
+			}
+			
+			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim(), true);
+		}
+	}
+	
 	/**
 	 * lee el fichero especificado en la constante ARCHIVO
 	 * y retorna una lista de objetos
@@ -74,5 +97,56 @@ public class AtraccionControlador {
 		return lista;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Atraccion buscarPorId(int id) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Atraccion Atraccion = null;
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			if(Integer.parseInt(campos[0]) == id) {
+				Atraccion = new Atraccion(
+						Integer.parseInt(campos[0].trim()),
+						campos[1].trim(),
+						campos[2].charAt(0),
+						Boolean.parseBoolean(campos[4].trim())
+					);
+				break;
+			}
+		}
+		
+		return Atraccion;
+	}
+	
+	/**
+	 * 
+	 * @param nombre
+	 * @return
+	 */
+	public Atraccion buscarPorNombre(String nombre) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Atraccion Atraccion = null;
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			if(campos[1].equals(nombre)) {
+				Atraccion = new Atraccion(
+						Integer.parseInt(campos[0].trim()),
+						campos[1].trim(),
+						campos[2].charAt(0),
+						Boolean.parseBoolean(campos[4].trim())
+					);
+				break;
+			}
+		}
+		
+		return Atraccion;
+	}
 
 }

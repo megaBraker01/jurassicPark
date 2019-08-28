@@ -26,7 +26,7 @@ public class PersonaVista extends Herramientas {
 		while(continuar) {
 			
 			cv.echo("\n-["+nombreSeccion.toUpperCase()+"]-");		
-			cv.crudMenu();
+			cv.echo(cv.crudMenu());
 			cv.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
