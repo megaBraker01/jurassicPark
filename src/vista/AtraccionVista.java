@@ -55,6 +55,7 @@ public class AtraccionVista extends Herramientas {
 					
 				case "new":
 					AtraccionVista.nuevo();
+					break;
 					
 				case "edit":
 					AtraccionVista.edit();

@@ -39,8 +39,7 @@ public class InicioVista {
 					continuar = false;*/
 					break;
 				case "inf":
-					m.echo("has elegido la opcion Informes");
-					continuar = false;
+					InformeVista.main(null);
 					break;
 				case "exit":
 					m.echo("Se estan guardando los datos...");
