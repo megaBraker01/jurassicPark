@@ -55,13 +55,14 @@ public class AtraccionVista extends Herramientas {
 					
 				case "new":
 					AtraccionVista.nuevo();
+					break;
 					
 				case "edit":
 					AtraccionVista.edit();
 					break;
 					
 				case "find":
-					AtraccionVista.find();
+					AtraccionVista.buscar();
 					break;
 				case "back":
 					
@@ -102,7 +103,7 @@ public class AtraccionVista extends Herramientas {
 		return ret;
 	}
 	
-	public static Atraccion find() {
+	public static Atraccion buscar() {
 		Atraccion atraccion = null;
 		Scanner sc = new Scanner(System.in);
 		AtraccionVista h = new AtraccionVista();
@@ -125,7 +126,7 @@ public class AtraccionVista extends Herramientas {
 	}
 	
 	public static Atraccion admin() {
-		Atraccion atraccion = AtraccionVista.find();
+		Atraccion atraccion = AtraccionVista.buscar();
 		if(atraccion != null) {
 			Scanner sc = new Scanner(System.in);
 			AtraccionVista h = new AtraccionVista();
@@ -150,7 +151,7 @@ public class AtraccionVista extends Herramientas {
 	
 	
 	public static Atraccion edit() {
-		Atraccion a = AtraccionVista.find();
+		Atraccion a = AtraccionVista.buscar();
 		if(null != a) {
 			AtraccionVista h = new AtraccionVista();
 			AtraccionControlador ac = new AtraccionControlador("atracciones.txt");
@@ -162,9 +163,9 @@ public class AtraccionVista extends Herramientas {
 			String tipo = sc.nextLine().toUpperCase();
 			
 			h.echo("Esta disponible? (si, no)");
-			String disp = sc.nextLine().toLowerCase();
-			
+			String disp = sc.nextLine().toLowerCase();			
 			boolean disponible = (disp.equals("si") || disp.equals("s") || disp.equals(""));
+			
 			if (!nombre.equals("")) { a.setNombre(nombre); }
 			if (!tipo.equals("")) { a.setTipo(tipo.charAt(0)); }			
 			a.setDisponible(disponible);

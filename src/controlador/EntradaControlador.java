@@ -2,7 +2,6 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import modelo.Cliente;
 import modelo.Entrada;
 
@@ -57,6 +56,29 @@ public class EntradaControlador {
 	public void nuevo(Entrada Entrada) {
 		Entrada.setId(this.generarId());
 		ArchivoControlador.editar(ARCHIVO, Entrada.toString());
+	}
+	
+	public void editar(Entrada Entrada) {
+		Entrada existeEntrada = this.buscarPorId(Entrada.getId());
+		if(existeEntrada != null) {
+			String archivo = ArchivoControlador.leer(ARCHIVO);
+			String[] fila = archivo.split("\n");
+			String nuevoContenido = "";
+			for(int i = fila.length - 1; i >= 0; i--) {
+				String registros = fila[i];
+				String[] campos = registros.split(", ");
+				if(Integer.parseInt(campos[0]) == Entrada.getId()) {
+					fila[i] = Entrada.toString();
+					break;
+				}
+			}
+			
+			for(int i = 0; i <= fila.length - 1 ; i++) {
+				nuevoContenido += fila[i]+"\n";
+			}
+			
+			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim(), true);
+		}
 	}
 	
 	
@@ -158,6 +180,37 @@ public class EntradaControlador {
 		ent.setVip(esVIP);		
 		
 		return ent;
+	}
+
+	/**
+	 * busca por el id de la Entrada o por el id del Cliente
+	 * @param id
+	 * @return
+	 */
+	public Entrada buscarPorId(int id) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Entrada Entrada = null;
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			if(Integer.parseInt(campos[0]) == id || Integer.parseInt(campos[1]) == id) {
+				 Entrada = new Entrada(
+						Integer.parseInt(campos[0].trim()), 
+						Integer.parseInt(campos[1].trim()),
+						campos[2].trim(),
+						Boolean.parseBoolean(campos[3]),
+						Integer.parseInt(campos[4].trim()),
+						Integer.parseInt(campos[5].trim()),
+						Double.parseDouble(campos[6]),
+						Integer.parseInt(campos[7].trim()),						
+						campos[9]
+								);
+				break;
+			}
+		}
+		
+		return Entrada;
 	}
 
 
