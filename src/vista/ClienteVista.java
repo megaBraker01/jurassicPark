@@ -113,7 +113,6 @@ public class ClienteVista extends Herramientas {
 						cv.echo(cli);
 					} else {
 						cv.echo("NO existe cliente con el DNI indicado");
-						//ClienteVista.nuevo();
 					}
 					
 					break;

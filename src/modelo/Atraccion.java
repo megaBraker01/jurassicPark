@@ -44,10 +44,10 @@ public class Atraccion {
 
 
 	public Atraccion(int id, String nombre, char tipo, boolean disponible) {
-		this.id = id;
-		this.nombre = nombre;
-		this.tipo = tipo;
-		this.disponible = disponible;
+		this.setId(id);
+		this.setNombre(nombre);
+		this.setTipo(tipo);
+		this.setDisponible(disponible);
 	}
 
 
