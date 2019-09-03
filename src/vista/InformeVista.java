@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import controlador.AtraccionControlador;
+import controlador.EntradaControlador;
 import controlador.InformeControlador;
 import modelo.Atraccion;
+import modelo.Entrada;
 
 /**
  * @author Rafael Perez Sanchez
@@ -14,7 +16,7 @@ import modelo.Atraccion;
  */
 public class InformeVista extends Herramientas{
 
-	public String menu = "Generar infome de Clientes (cli), Empleados (emp) o Atracciones (atr)";
+	public String menu = "Generar infome de Entradas (ent), Empleados (emp) o Atracciones (atr)";
 	/**
 	 * 
 	 */
@@ -40,8 +42,8 @@ public class InformeVista extends Herramientas{
 			
 			String opcion = scanner.next().toLowerCase();
 			switch(opcion) {
-				case "cli":
-					InformeVista.cliente();
+				case "ent":
+					InformeVista.entradas();
 				break;
 				
 				case "emp":
@@ -66,28 +68,33 @@ public class InformeVista extends Herramientas{
 	}
 	
 	
-	public static void cliente() {
+	public static void entradas() {
 		InformeVista iv = new InformeVista();
 		iv.echo("-[INFORMES CLIENTES]-");
 		iv.echo("Tipos de informes:");
 		iv.echo("General (gen) | Por Año (year) | Por Año/Mes (month) | Por Año/Mes/Dia (day)");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
+		EntradaControlador ec = new EntradaControlador("entradas.txt");
+	
 		boolean continuar = true;		
 		while(continuar) {
 			String opcion = scanner.next().toLowerCase();
-			char opcionL = opcion.charAt(0);
-			switch(opcionL) {
-			case 'g':
+			switch(opcion) {
+			case "gen":
+			case "g":
 				//continuar = false;
 				break;
-			case 'y':
-				//continuar = false;
+			case "year":
+			case "y":
+				EntradaVista.buscarPorAnio();
 				break;
-			case 'm':
-				//continuar = false;
+			case "month":
+			case "m":
+				EntradaVista.buscarPorAnioMes();
 				break;
-			case 'd':
+			case "day":
+			case "d":
 				//continuar = false;
 				break;
 			}

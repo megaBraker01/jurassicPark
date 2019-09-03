@@ -1,5 +1,6 @@
 package vista;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 
@@ -35,6 +36,11 @@ public abstract class Herramientas {
 		} catch (NumberFormatException nfe){
 			return false;
 		}
+	}
+	
+	public String numFormat(Object num) {
+		DecimalFormat df = new DecimalFormat("#.00");
+		return df.format(num);
 	}
 	
 	public String opcionElegida() {

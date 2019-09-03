@@ -58,6 +58,10 @@ public class EntradaControlador {
 		ArchivoControlador.editar(ARCHIVO, Entrada.toString());
 	}
 	
+	/**
+	 * 
+	 * @param Entrada
+	 */
 	public void editar(Entrada Entrada) {
 		Entrada existeEntrada = this.buscarPorId(Entrada.getId());
 		if(existeEntrada != null) {
@@ -181,6 +185,16 @@ public class EntradaControlador {
 		
 		return ent;
 	}
+	
+	/**
+	 * obtiene el total de entradas en general
+	 * @return
+	 */
+	public int getTotalEntradas() {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		return fila.length;
+	}
 
 	/**
 	 * busca por el id de la Entrada o por el id del Cliente
@@ -212,6 +226,118 @@ public class EntradaControlador {
 		
 		return Entrada;
 	}
+	
+	
+	/**
+	 * busca por la fecha de la Entrada
+	 * @param anio
+	 * @return
+	 */
+	
+	public List<Entrada> buscarPorAnio(String anio) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Entrada Entrada = null;
+		List<Entrada> lista = new ArrayList<>();
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			String[] fechaEntrada = campos[9].split("-");
+			String anioEntrada = fechaEntrada[2];
+			if(anioEntrada.equals(anio)) {
+				 Entrada = new Entrada(
+						Integer.parseInt(campos[0].trim()), 
+						Integer.parseInt(campos[1].trim()),
+						campos[2].trim(),
+						Boolean.parseBoolean(campos[3]),
+						Integer.parseInt(campos[4].trim()),
+						Integer.parseInt(campos[5].trim()),
+						Double.parseDouble(campos[6]),
+						Integer.parseInt(campos[7].trim()),						
+						campos[9]
+								);
+				 lista.add(Entrada);
+			}
+		}
+		
+		return lista;
+	}
+	
+	/**
+	 * 
+	 * @param anio
+	 * @param mes
+	 * @return
+	 */
+	public List<Entrada> buscarPorAnioMes(String anio, String mes) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Entrada Entrada = null;
+		List<Entrada> lista = new ArrayList<>();
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			String[] fechaEntrada = campos[9].split("-");
+			String anioEntrada = fechaEntrada[2];
+			String mesEntrada = fechaEntrada[1];
+			if(anioEntrada.equals(anio) && mesEntrada.equals(mes)) {
+				 Entrada = new Entrada(
+						Integer.parseInt(campos[0].trim()), 
+						Integer.parseInt(campos[1].trim()),
+						campos[2].trim(),
+						Boolean.parseBoolean(campos[3]),
+						Integer.parseInt(campos[4].trim()),
+						Integer.parseInt(campos[5].trim()),
+						Double.parseDouble(campos[6]),
+						Integer.parseInt(campos[7].trim()),						
+						campos[9]
+								);
+				 lista.add(Entrada);
+			}
+		}
+		
+		return lista;
+	}
+	
+	/**
+	 * 
+	 * @param anio
+	 * @param mes
+	 * @param dia
+	 * @return
+	 */
+	public List<Entrada> buscarPorAnioMesDia(String anio, String mes, String dia) {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		Entrada Entrada = null;
+		List<Entrada> lista = new ArrayList<>();
+		for(int i = fila.length - 1; i >= 0; i--) {
+			String registros = fila[i];
+			String[] campos = registros.split(", ");
+			String[] fechaEntrada = campos[9].split("-");
+			String anioEntrada = fechaEntrada[2];
+			String mesEntrada = fechaEntrada[1];
+			String diaEntrada = fechaEntrada[1];
+			if(anioEntrada.equals(anio) && mesEntrada.equals(mes) && diaEntrada.equals(dia)) {
+				 Entrada = new Entrada(
+						Integer.parseInt(campos[0].trim()), 
+						Integer.parseInt(campos[1].trim()),
+						campos[2].trim(),
+						Boolean.parseBoolean(campos[3]),
+						Integer.parseInt(campos[4].trim()),
+						Integer.parseInt(campos[5].trim()),
+						Double.parseDouble(campos[6]),
+						Integer.parseInt(campos[7].trim()),						
+						campos[9]
+								);
+				 lista.add(Entrada);
+			}
+		}
+		
+		return lista;
+	}
+	
+
 
 
 }
