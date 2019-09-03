@@ -16,7 +16,7 @@ import modelo.Entrada;
  */
 public class InformeVista extends Herramientas{
 
-	public String menu = "Generar infome de Entradas (ent), Empleados (emp) o Atracciones (atr)";
+	public String menu = "Generar infome de:\n Entradas (ent), Empleados (emp) o Atracciones (atr)";
 	public static final String SECCION = "informes";
 	/**
 	 * 
