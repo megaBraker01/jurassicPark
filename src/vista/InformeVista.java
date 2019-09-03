@@ -17,6 +17,7 @@ import modelo.Entrada;
 public class InformeVista extends Herramientas{
 
 	public String menu = "Generar infome de Entradas (ent), Empleados (emp) o Atracciones (atr)";
+	public static final String SECCION = "informes";
 	/**
 	 * 
 	 */
@@ -30,7 +31,7 @@ public class InformeVista extends Herramientas{
 	public static void main(String[] args) {
 		String seccion = "informes";
 		InformeVista av = new InformeVista();		
-		InformeControlador ic = new InformeControlador(seccion+".txt");
+		InformeControlador ic = new InformeControlador(SECCION+".txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
@@ -55,7 +56,7 @@ public class InformeVista extends Herramientas{
 				
 				case "back":
 					
-					av.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
+					av.echo("Saliendo de la seccion ["+SECCION.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
@@ -70,9 +71,9 @@ public class InformeVista extends Herramientas{
 	
 	public static void entradas() {
 		InformeVista iv = new InformeVista();
-		iv.echo("-[INFORMES CLIENTES]-");
+		iv.echo("-[INFORMES ENTRADAS]-");
 		iv.echo("Tipos de informes:");
-		iv.echo("General (gen) | Por Año (year) | Por Año/Mes (month) | Por Año/Mes/Dia (day)");
+		iv.echo("General (gen) | Por A\u00f1o (year) | Por A\u00f1o/Mes (month) | Por A\u00f1o/Mes/Dia (day)");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		EntradaControlador ec = new EntradaControlador("entradas.txt");

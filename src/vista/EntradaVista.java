@@ -181,7 +181,7 @@ public class EntradaVista extends Herramientas {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
 		Scanner sc = new Scanner(System.in);
-		ev.echo("Indique el año (yyyy):");
+		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
 		List<Entrada> lista = ec.buscarPorAnio(anio);
 		Iterator<Entrada> iterador = lista.iterator();
@@ -200,7 +200,7 @@ public class EntradaVista extends Herramientas {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
 		Scanner sc = new Scanner(System.in);
-		ev.echo("Indique el año (yyyy):");
+		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
 		ev.echo("Indique el mes (mm):");
 		String mes = sc.nextLine().toLowerCase();
@@ -226,7 +226,7 @@ public class EntradaVista extends Herramientas {
 		EntradaVista ev = new EntradaVista();
 		Scanner sc = new Scanner(System.in);
 		int totalAnual = ec.getTotalEntradas();
-		ev.echo("Indique el año (yyyy):");
+		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
 		ev.echo("Indique el mes (mm):");
 		String mes = sc.nextLine().toLowerCase();
