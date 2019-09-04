@@ -71,35 +71,11 @@ public class InformeVista extends Herramientas{
 	
 	public static void entradas() {
 		InformeVista iv = new InformeVista();
-		iv.echo("-[INFORMES ENTRADAS]-");
-		iv.echo("Tipos de informes:");
-		iv.echo("General (gen) | Por A\u00f1o (year) | Por A\u00f1o/Mes (month) | Por A\u00f1o/Mes/Dia (day)");
+		EntradaControlador ec = new EntradaControlador("entradas.txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-		EntradaControlador ec = new EntradaControlador("entradas.txt");
-	
-		boolean continuar = true;		
-		while(continuar) {
-			String opcion = scanner.next().toLowerCase();
-			switch(opcion) {
-			case "gen":
-			case "g":
-				//continuar = false;
-				break;
-			case "year":
-			case "y":
-				EntradaVista.buscarPorAnio();
-				break;
-			case "month":
-			case "m":
-				EntradaVista.buscarPorAnioMes();
-				break;
-			case "day":
-			case "d":
-				//continuar = false;
-				break;
-			}
-		}
+		iv.echo("-[INFORMES ENTRADAS]-");		
+		EntradaVista.buscarPorFecha();
 	}
 
 }

@@ -176,6 +176,43 @@ public class EntradaVista extends Herramientas {
 		return Entrada;
 	}
 	
+	public static void buscarPorFecha() {
+		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
+		EntradaVista ev = new EntradaVista();
+		Scanner sc = new Scanner(System.in);
+		Date fecha = new Date();
+		
+		int totalAnual = ec.getTotalEntradas();
+		ev.echo("Indique el a\u00f1o (yyyy):");
+		String anio = sc.nextLine().toLowerCase();
+		DateFormat fechaActual = new SimpleDateFormat("dd-MM-yyyy");
+		String[] datosFechaActual = fechaActual.format(fecha).split("-");
+		anio = (anio.equals("")) ? datosFechaActual[2] : anio;
+		ev.echo("Indique el mes (mm):");
+		String mes = sc.nextLine().toLowerCase();
+		ev.echo("Indique el dia (dd):");
+		String dia = sc.nextLine().toLowerCase();
+		List<Entrada> lista = null;
+		if(!anio.equals("") && !mes.equals("") && !dia.equals("")) {
+			lista = ec.buscarPorAnioMesDia(anio, mes, dia);
+		} else if (!anio.equals("") && !mes.equals("")){
+			lista = ec.buscarPorAnioMes(anio, mes);
+		} else if (!anio.equals("")) {
+			lista = ec.buscarPorAnio(anio);
+		}
+		
+		Iterator<Entrada> iterador = lista.iterator();
+		int total = lista.size();
+		ev.echo("Total anual: "+totalAnual);
+		ev.echo("Total de "+SECCION+": "+total);
+		ev.echo(ev.menuLista);
+		while(iterador.hasNext()) {
+			ev.echo(iterador.next().toString());
+		}
+		ev.echo(ev.menuLista);
+		ev.echo("Total de "+SECCION+": "+total);
+	}
+	
 	
 	public static void buscarPorAnio() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");

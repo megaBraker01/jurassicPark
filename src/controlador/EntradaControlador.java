@@ -317,7 +317,7 @@ public class EntradaControlador {
 			String[] fechaEntrada = campos[9].split("-");
 			String anioEntrada = fechaEntrada[2];
 			String mesEntrada = fechaEntrada[1];
-			String diaEntrada = fechaEntrada[1];
+			String diaEntrada = fechaEntrada[0];
 			if(anioEntrada.equals(anio) && mesEntrada.equals(mes) && diaEntrada.equals(dia)) {
 				 Entrada = new Entrada(
 						Integer.parseInt(campos[0].trim()), 
@@ -336,8 +336,5 @@ public class EntradaControlador {
 		
 		return lista;
 	}
-	
-
-
 
 }
