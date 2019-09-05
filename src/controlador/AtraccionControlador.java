@@ -89,6 +89,7 @@ public class AtraccionControlador {
 					Integer.parseInt(campos[0].trim()),
 					campos[1].trim(),
 					campos[2].charAt(0),
+					Boolean.parseBoolean(campos[3].trim()),
 					Boolean.parseBoolean(campos[4].trim())
 				);
 				lista.add(Atraccion);
@@ -114,6 +115,7 @@ public class AtraccionControlador {
 						Integer.parseInt(campos[0].trim()),
 						campos[1].trim(),
 						campos[2].charAt(0),
+						Boolean.parseBoolean(campos[3].trim()),
 						Boolean.parseBoolean(campos[4].trim())
 					);
 				break;
@@ -140,6 +142,7 @@ public class AtraccionControlador {
 						Integer.parseInt(campos[0].trim()),
 						campos[1].trim(),
 						campos[2].charAt(0),
+						Boolean.parseBoolean(campos[3].trim()),
 						Boolean.parseBoolean(campos[4].trim())
 					);
 				break;
@@ -147,6 +150,34 @@ public class AtraccionControlador {
 		}
 		
 		return Atraccion;
+	}
+	
+	/**
+	 * devuelve las atracciones con valor disponible true
+	 * @return
+	 */
+	public List<Atraccion> atraccionesFuncionando() {
+		String archivo = ArchivoControlador.leer(ARCHIVO);
+		String[] fila = archivo.split("\n");
+		List<Atraccion> lista = new ArrayList<>();
+		if(fila.length > 0 && !archivo.equals("")) {
+			boolean funcionando = true;
+			for(String registros : fila) {
+				String[] campos = registros.split(", ");
+				if(Boolean.parseBoolean(campos[4].trim()) == funcionando) {
+					Atraccion Atraccion = new Atraccion(
+						Integer.parseInt(campos[0].trim()),
+						campos[1].trim(),
+						campos[2].charAt(0),
+						Boolean.parseBoolean(campos[3].trim()),
+						Boolean.parseBoolean(campos[4].trim())
+					);
+					lista.add(Atraccion);
+				}
+				
+			}
+		}		
+		return lista;
 	}
 
 }

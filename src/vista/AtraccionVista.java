@@ -16,21 +16,21 @@ import modelo.Atraccion;
  */
 public class AtraccionVista extends Herramientas {
 	
-	public String menuLista = "[ID] [NOMBRE] [TIPO] [AYUDANTES NECESARIOS] [DISPONIBLE?]";
+	public String menuLista = "[ID] [NOMBRE] [TIPO] [DISPONIBLE?] [ENCENDIDA?]";
+	public static final String SECCION = "atracciones";
 
 	/**
 	 * @param args
 	 */
 	public static boolean main(String[] args) {
-		String seccion = "atracciones";
-		AtraccionVista av = new AtraccionVista();		
-		AtraccionControlador ac = new AtraccionControlador(seccion+".txt");
+		AtraccionVista av = new AtraccionVista();
+		
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
 		while(continuar) {
 			
-			av.echo("\n-["+seccion.toUpperCase()+"]-");		
+			av.echo("\n-["+SECCION.toUpperCase()+"]-");		
 			av.echo("Administrar (admin) | "+av.crudMenu());
 			av.echo("elige una opcion:_");
 			
@@ -41,16 +41,7 @@ public class AtraccionVista extends Herramientas {
 				break;
 				
 				case "list":
-					List<Atraccion> lista = ac.lista();
-					Iterator<Atraccion> iterador = lista.iterator();
-					int total = lista.size();
-					av.echo("Total de "+seccion+": "+total);
-					av.echo(av.menuLista);
-					while(iterador.hasNext()) {
-						av.echo(iterador.next().toString());
-					}
-					av.echo(av.menuLista);
-					av.echo("Total de "+seccion+": "+total);
+					AtraccionVista.lista();
 					break;
 					
 				case "new":
@@ -66,7 +57,7 @@ public class AtraccionVista extends Herramientas {
 					break;
 				case "back":
 					
-					av.echo("Saliendo de la seccion ["+seccion.toUpperCase()+"]");
+					av.echo("Saliendo de la seccion ["+SECCION.toUpperCase()+"]");
 					continuar = false;
 					break;
 					
@@ -80,7 +71,7 @@ public class AtraccionVista extends Herramientas {
 	}
 	
 	public static int nuevo() {
-		AtraccionControlador ac = new AtraccionControlador("atracciones.txt");
+		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 		AtraccionVista av = new AtraccionVista();
 		Atraccion a = new Atraccion();
 		int ret = 0;
@@ -103,11 +94,27 @@ public class AtraccionVista extends Herramientas {
 		return ret;
 	}
 	
+	public static List<Atraccion> lista() {
+		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
+		AtraccionVista av = new AtraccionVista();	
+		List<Atraccion> lista = ac.lista();
+		Iterator<Atraccion> iterador = lista.iterator();
+		int total = lista.size();
+		av.echo("Total de "+SECCION+": "+total);
+		av.echo(av.menuLista);
+		while(iterador.hasNext()) {
+			av.echo(iterador.next().toString());
+		}
+		av.echo(av.menuLista);
+		av.echo("Total de "+SECCION+": "+total);
+		return lista;
+	}
+	
 	public static Atraccion buscar() {
 		Atraccion atraccion = null;
 		Scanner sc = new Scanner(System.in);
 		AtraccionVista h = new AtraccionVista();
-		AtraccionControlador ac = new AtraccionControlador("atracciones.txt");
+		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 		h.echo("Indique el nombre o el ID de la atraccion");
 		String nombreOid = sc.nextLine().trim().toLowerCase(); 
 		if(h.isNumeric(nombreOid)) {
@@ -154,7 +161,7 @@ public class AtraccionVista extends Herramientas {
 		Atraccion a = AtraccionVista.buscar();
 		if(null != a) {
 			AtraccionVista h = new AtraccionVista();
-			AtraccionControlador ac = new AtraccionControlador("atracciones.txt");
+			AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 			Scanner sc = new Scanner(System.in);
 			h.echo("Nombre de la Atraccion");
 			String nombre = sc.nextLine().toLowerCase();
@@ -177,6 +184,22 @@ public class AtraccionVista extends Herramientas {
 		}
 		
 		return a;
+	}
+	
+	public static List<Atraccion> AtraccionesFuncionando() {
+		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
+		AtraccionVista av = new AtraccionVista();	
+		List<Atraccion> lista = ac.atraccionesFuncionando();
+		Iterator<Atraccion> iterador = lista.iterator();
+		int total = lista.size();
+		av.echo("Total de "+SECCION+": "+total);
+		av.echo(av.menuLista);
+		while(iterador.hasNext()) {
+			av.echo(iterador.next().toString());
+		}
+		av.echo(av.menuLista);
+		av.echo("Total de "+SECCION+": "+total);
+		return lista;
 	}
 
 }

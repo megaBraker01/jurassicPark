@@ -35,8 +35,6 @@ public class InicioVista {
 					break;
 				case "emp":
 					EmpleadoVista.main(null);
-					/*m.echo("has elegido la opcion Empleados");
-					continuar = false;*/
 					break;
 				case "inf":
 					InformeVista.main(null);

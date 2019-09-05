@@ -43,11 +43,12 @@ public class Atraccion {
 	}
 
 
-	public Atraccion(int id, String nombre, char tipo, boolean disponible) {
+	public Atraccion(int id, String nombre, char tipo, boolean disponible, boolean encendida) {
 		this.setId(id);
 		this.setNombre(nombre);
 		this.setTipo(tipo);
 		this.setDisponible(disponible);
+		this.setEnciendida(encendida);
 	}
 
 
@@ -128,6 +129,9 @@ public class Atraccion {
 
 
 	public void setDisponible(boolean disponible) {
+		if(!disponible) {
+			this.setEnciendida(false);
+		}
 		this.disponible = disponible;
 	}
 
@@ -140,12 +144,16 @@ public class Atraccion {
 
 
 	public void setEnciendida(boolean enciendida) {
-		this.enciendida = enciendida;
+		if(this.isDisponible()) {
+			this.enciendida = enciendida;
+		} else {
+			this.enciendida = false;
+		}
 	}
 	
 	
 	public String toString() {
-		return getId()+ ", " +getNombre()+ ", " +getTipo()+ ", " +getAyudantes()+ ", " + isDisponible();
+		return getId()+ ", " +getNombre()+ ", " +getTipo()+ ", " +isDisponible()+", "+isEnciendida();
 	}
 
 }

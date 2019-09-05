@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import controlador.AtraccionControlador;
+import controlador.EmpleadoControlador;
 import controlador.EntradaControlador;
 import controlador.InformeControlador;
 import modelo.Atraccion;
@@ -16,7 +17,7 @@ import modelo.Entrada;
  */
 public class InformeVista extends Herramientas{
 
-	public String menu = "Generar infome de:\n Entradas (ent), Empleados (emp) o Atracciones (atr)";
+	public String menu = "Generar infome de:\nEntradas (ent), Atracciones (atr), Salir (back)";
 	public static final String SECCION = "informes";
 	/**
 	 * 
@@ -46,12 +47,9 @@ public class InformeVista extends Herramientas{
 				case "ent":
 					InformeVista.entradas();
 				break;
-				
-				case "emp":
-					break;
 					
 				case "atr":
-					
+					InformeVista.atracciones();
 					break;
 				
 				case "back":
@@ -71,11 +69,16 @@ public class InformeVista extends Herramientas{
 	
 	public static void entradas() {
 		InformeVista iv = new InformeVista();
-		EntradaControlador ec = new EntradaControlador("entradas.txt");
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
 		iv.echo("-[INFORMES ENTRADAS]-");		
 		EntradaVista.buscarPorFecha();
+	}
+	
+	
+	
+	public static void atracciones() {
+		InformeVista iv = new InformeVista();
+		iv.echo("-[INFORMES ATRACCIONES]-");
+		AtraccionVista.AtraccionesFuncionando();
 	}
 
 }

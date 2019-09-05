@@ -181,13 +181,16 @@ public class EntradaVista extends Herramientas {
 		EntradaVista ev = new EntradaVista();
 		Scanner sc = new Scanner(System.in);
 		Date fecha = new Date();
+		String tipoFiltro = "";
+		int totalEntradas = ec.getTotalEntradas();
 		
-		int totalAnual = ec.getTotalEntradas();
 		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
 		DateFormat fechaActual = new SimpleDateFormat("dd-MM-yyyy");
 		String[] datosFechaActual = fechaActual.format(fecha).split("-");
 		anio = (anio.equals("")) ? datosFechaActual[2] : anio;
+		List<Entrada> entradasAnuales = ec.buscarPorAnio(anio);
+		int totalAnual = entradasAnuales.size();
 		ev.echo("Indique el mes (mm):");
 		String mes = sc.nextLine().toLowerCase();
 		ev.echo("Indique el dia (dd):");
@@ -195,22 +198,42 @@ public class EntradaVista extends Herramientas {
 		List<Entrada> lista = null;
 		if(!anio.equals("") && !mes.equals("") && !dia.equals("")) {
 			lista = ec.buscarPorAnioMesDia(anio, mes, dia);
+			tipoFiltro = "a\u00f1o "+anio+"/ mes "+mes+"/ dia"+dia;
 		} else if (!anio.equals("") && !mes.equals("")){
 			lista = ec.buscarPorAnioMes(anio, mes);
+			tipoFiltro = "a\u00f1o "+anio+"/ mes "+mes;
 		} else if (!anio.equals("")) {
 			lista = ec.buscarPorAnio(anio);
+			tipoFiltro = "a\u00f1o "+anio;
 		}
 		
+		String mostrarRegistros = "";
+		String info = "";
+		double TotalRecaudado = 0;
+		double precioMedio = 0;
 		Iterator<Entrada> iterador = lista.iterator();
-		int total = lista.size();
-		ev.echo("Total anual: "+totalAnual);
-		ev.echo("Total de "+SECCION+": "+total);
-		ev.echo(ev.menuLista);
+		Entrada entrada;
 		while(iterador.hasNext()) {
-			ev.echo(iterador.next().toString());
+			entrada = iterador.next();
+			mostrarRegistros += entrada.toString()+"\n";
+			TotalRecaudado += entrada.getPrecioFianl();
 		}
+		
+		
+		int totalFiltro = lista.size();
+		precioMedio = TotalRecaudado / totalFiltro;
+		float porcentaje = (((float)totalFiltro/totalAnual) * 100);
+		info += "Total de "+SECCION+" anual: "+totalAnual+"\n";
+		info +=("Total de "+SECCION+" por "+tipoFiltro+": "+totalFiltro+"\n");
+		info +=("Total recaudado: "+TotalRecaudado+"\u20AC"+"\n");
+		info +=("El precio medio de una entrada en ese periodo es de: "+ev.numFormat(precioMedio)+"\u20AC"+"\n");
+		info +=("El total de entradas por "+tipoFiltro+" es un " +ev.numFormat(porcentaje)+ "% del total anual"+"\n");
+		
+		ev.echo(info);
 		ev.echo(ev.menuLista);
-		ev.echo("Total de "+SECCION+": "+total);
+		ev.echo(mostrarRegistros);
+		ev.echo(ev.menuLista);
+		ev.echo(info);
 	}
 	
 	
