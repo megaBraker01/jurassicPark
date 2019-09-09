@@ -10,7 +10,6 @@ import java.io.*;
 public class ArchivoControlador {
 	
 	public static final String ARCHIVO_RUTA = "src"+ File.separator + "archivos" + File.separator;
-	//public static final String BBDD_RUTA = "src"+ File.separator + "BBDD" + File.separator;
 	
 	
 	/**
@@ -88,23 +87,6 @@ public class ArchivoControlador {
 	 */
 	public static void editar(String path, String contenido) {
 		try {
-			BufferedWriter escribir = new BufferedWriter(new FileWriter(ARCHIVO_RUTA + path, true));
-			escribir.write(contenido+"\n");
-			escribir.flush();
-			escribir.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	/**
-	 * introduce el contenido al final del archivo,
-	 * concatenado con su contenido anterior
-	 * @param path: nombre de archivo con extencion, ej; archivo.txt
-	 * @param contenido: nuevo contenido
-	 */
-	public static void editar(String path, String contenido, boolean sobreEscribir) {
-		try {
 			BufferedWriter escribir = new BufferedWriter(new FileWriter(ARCHIVO_RUTA + path));
 			escribir.write(contenido+"\n");
 			escribir.flush();
@@ -129,7 +111,7 @@ public class ArchivoControlador {
 	 * @param path: nombre de la carpeta o directorio
 	 * @return true en el caso de exito
 	 */
-	public static boolean crarDirectorio(String path) {
+	public static boolean crearDirectorio(String path) {
 		File directorio = new File(ARCHIVO_RUTA + path);
 		return directorio.mkdirs();
 	}

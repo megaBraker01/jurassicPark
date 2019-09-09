@@ -2,7 +2,6 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import modelo.Empleado;
 import modelo.Persona;
 /**
@@ -16,7 +15,6 @@ public class EmpleadoControlador extends PersonaControlador {
 	 */
 	public EmpleadoControlador(String nombreArchivo) {
 		super(nombreArchivo);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

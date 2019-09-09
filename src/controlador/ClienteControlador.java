@@ -13,7 +13,6 @@ public class ClienteControlador extends PersonaControlador {
 	 */
 	public ClienteControlador(String nombreArchivo) {
 		super(nombreArchivo);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

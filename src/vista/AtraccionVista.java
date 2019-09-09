@@ -6,7 +6,6 @@ package vista;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
 import controlador.AtraccionControlador;
 import modelo.Atraccion;
 
@@ -70,11 +69,16 @@ public class AtraccionVista extends Herramientas {
 		return false;
 	}
 	
+	/**
+	 * crea una nueva atraccion
+	 * @return
+	 */
 	public static int nuevo() {
 		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 		AtraccionVista av = new AtraccionVista();
 		Atraccion a = new Atraccion();
 		int ret = 0;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		av.echo("Nombre de la Atraccion");
 		String nombre = sc.nextLine().toLowerCase();
@@ -94,6 +98,10 @@ public class AtraccionVista extends Herramientas {
 		return ret;
 	}
 	
+	/**
+	 * saca por pantalla la lista de atracciones
+	 * @return
+	 */
 	public static List<Atraccion> lista() {
 		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 		AtraccionVista av = new AtraccionVista();	
@@ -110,8 +118,13 @@ public class AtraccionVista extends Herramientas {
 		return lista;
 	}
 	
+	/**
+	 * busca una atraccion por nombre o por id
+	 * @return
+	 */
 	public static Atraccion buscar() {
 		Atraccion atraccion = null;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		AtraccionVista h = new AtraccionVista();
 		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
@@ -132,9 +145,14 @@ public class AtraccionVista extends Herramientas {
 		return atraccion;
 	}
 	
+	/**
+	 * busca y enciende o apaga una atraccion
+	 * @return
+	 */
 	public static Atraccion admin() {
 		Atraccion atraccion = AtraccionVista.buscar();
 		if(atraccion != null) {
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			AtraccionVista h = new AtraccionVista();
 			
@@ -156,12 +174,16 @@ public class AtraccionVista extends Herramientas {
 		
 	}
 	
-	
+	/**
+	 * busca y edita los datos de una atraccion
+	 * @return
+	 */
 	public static Atraccion edit() {
 		Atraccion a = AtraccionVista.buscar();
 		if(null != a) {
 			AtraccionVista h = new AtraccionVista();
 			AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			h.echo("Nombre de la Atraccion");
 			String nombre = sc.nextLine().toLowerCase();
@@ -186,6 +208,10 @@ public class AtraccionVista extends Herramientas {
 		return a;
 	}
 	
+	/**
+	 * lista las atracciones que se encuentran en funcionamiento
+	 * @return
+	 */
 	public static List<Atraccion> AtraccionesFuncionando() {
 		AtraccionControlador ac = new AtraccionControlador(SECCION+".txt");
 		AtraccionVista av = new AtraccionVista();	

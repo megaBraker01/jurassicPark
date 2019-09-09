@@ -4,7 +4,6 @@ package vista;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
 import controlador.ClienteControlador;
 import modelo.Cliente;
 import modelo.Persona;
@@ -20,11 +19,9 @@ public class ClienteVista extends Herramientas {
 	public ClienteVista() {}
 	
 	public static boolean main(String[] args) {
-		ClienteVista cv = new ClienteVista();		
-		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
+		ClienteVista cv = new ClienteVista();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-		Persona cli;
 		boolean continuar = true;		
 		while(continuar) {
 			
@@ -33,28 +30,14 @@ public class ClienteVista extends Herramientas {
 			cv.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
-			Persona p;
-			String nombre;
-			String dni;
-			String edad;
 			switch(opcion) {
 				case "list":
-					
-					List<Persona> lista = cc.lista();
-					int total = lista.size();
-					Iterator<Persona> iterador = lista.iterator();
-					cv.echo("Total de "+SECCION+": "+total);
-					cv.echo(cv.menuLista);
-					while(iterador.hasNext()) {
-						cv.echo(iterador.next().toString());
-					}
-					cv.echo("Total de "+SECCION+": "+total);
+					ClienteVista.lista();
 					break;
 					
-				case "new":
-					
+				case "new":					
 					cv.echo("indique el DNI del cliente");
-					cli = ClienteVista.buscar();
+					Persona cli = ClienteVista.buscar();
 					if (cli != null) {
 						cv.echo("Ya existe un cliente con el DNI indicado");
 						cv.echo(cli);
@@ -64,58 +47,14 @@ public class ClienteVista extends Herramientas {
 					}
 					break;
 					
-				case "edit":
-					
-					cv.echo("Inserte el DNI del cliente a editar:");
-					Scanner sc1 = new Scanner(System.in);
-					dni = sc1.next();
-					p = cc.buscarPordni(dni);
-					
-					if(p == null) {
-						cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
-					} else {
-						cv.echo("los datos actuales son:");
-						cv.echo(cv.menuLista);
-						cv.echo(p.toString());
-						cv.echo("Editar Nombre:");
-						Scanner sc2 = new Scanner(System.in);
-						nombre = sc2.nextLine();
-						if(!nombre.isEmpty() && !nombre.equals("")) {
-							p.setNombreCompleto(nombre);
-						}
-						
-						cv.echo("Editar DNI:");
-						dni = sc2.nextLine();
-						if(!dni.isEmpty() && !dni.equals("")) {
-							p.setDni(dni);
-						}
-						
-						cv.echo("Editar Edad:");
-						edad = sc2.nextLine();
-						if(!edad.isEmpty() && !edad.equals("")) {
-							p.setEdad(Integer.parseInt(edad));
-						}
-						
-						cc.editar(p);
-						cv.echo("\nLos nuevos datos son:");
-						cv.echo(cv.menuLista);
-						cv.echo(p);
-					}
-					
+				case "edit":					
+					ClienteVista.editar();					
 					break;
+					
 				case "find":
-
-					cv.echo("indique el DNI del cliente");
-					cli = ClienteVista.buscar();
-					if (cli != null) {
-						cv.echo("Ya existe un cliente con el DNI indicado");
-						cv.echo(cv.menuLista);
-						cv.echo(cli);
-					} else {
-						cv.echo("NO existe cliente con el DNI indicado");
-					}
-					
+					ClienteVista.find();
 					break;
+					
 				case "back":
 					
 					cv.echo("Saliendo de la seccion ["+SECCION.toUpperCase()+"]");
@@ -131,8 +70,36 @@ public class ClienteVista extends Herramientas {
 		return false;
 	}
 	
+	public static void lista() {
+		ClienteVista cv = new ClienteVista();		
+		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
+		List<Persona> lista = cc.lista();
+		int total = lista.size();
+		Iterator<Persona> iterador = lista.iterator();
+		cv.echo("Total de "+SECCION+": "+total);
+		cv.echo(cv.menuLista);
+		while(iterador.hasNext()) {
+			cv.echo(iterador.next().toString());
+		}
+		cv.echo("Total de "+SECCION+": "+total);
+	}
+	
+	public static void find () {
+		ClienteVista cv = new ClienteVista();		
+		cv.echo("indique el DNI del cliente");
+		Cliente cli = ClienteVista.buscar();
+		if (cli != null) {
+			cv.echo("Ya existe un cliente con el DNI indicado");
+			cv.echo(cv.menuLista);
+			cv.echo(cli);
+		} else {
+			cv.echo("NO existe cliente con el DNI indicado");
+		}
+	}
+	
 	public static Cliente buscar () {
 		Cliente ret = null;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
 		ClienteVista cv = new ClienteVista();
@@ -149,6 +116,7 @@ public class ClienteVista extends Herramientas {
 	}
 	
 	public static int nuevo () {
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int ret = 0; // valor de retorno por defecto
 		Persona p;
@@ -185,6 +153,51 @@ public class ClienteVista extends Herramientas {
 		}		
 		
 		return ret;
+	}
+	
+	public static void editar() {
+		ClienteVista cv = new ClienteVista();		
+		ClienteControlador cc = new ClienteControlador(SECCION+".txt");
+		cv.echo("Inserte el DNI del cliente a editar:");
+		@SuppressWarnings("resource")
+		Scanner sc1 = new Scanner(System.in);
+		String dni = sc1.next();
+		Persona p;
+		String nombre;
+		String edad;
+		p = cc.buscarPordni(dni);
+		
+		if(p == null) {
+			cv.echo("[ERROR] No se ha encontrado al cliente con el DNI: "+ dni);
+		} else {
+			cv.echo("los datos actuales son:");
+			cv.echo(cv.menuLista);
+			cv.echo(p.toString());
+			cv.echo("Editar Nombre:");
+			@SuppressWarnings("resource")
+			Scanner sc2 = new Scanner(System.in);
+			nombre = sc2.nextLine();
+			if(!nombre.isEmpty() && !nombre.equals("")) {
+				p.setNombreCompleto(nombre);
+			}
+			
+			cv.echo("Editar DNI:");
+			dni = sc2.nextLine();
+			if(!dni.isEmpty() && !dni.equals("")) {
+				p.setDni(dni);
+			}
+			
+			cv.echo("Editar Edad:");
+			edad = sc2.nextLine();
+			if(!edad.isEmpty() && !edad.equals("")) {
+				p.setEdad(Integer.parseInt(edad));
+			}
+			
+			cc.editar(p);
+			cv.echo("\nLos nuevos datos son:");
+			cv.echo(cv.menuLista);
+			cv.echo(p);
+		}
 	}
 	
 }

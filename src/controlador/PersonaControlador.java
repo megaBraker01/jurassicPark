@@ -132,7 +132,7 @@ public class PersonaControlador {
 				nuevoContenido += fila[i]+"\n";
 			}
 			
-			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim(), true);
+			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim());
 		}
 	}
 	

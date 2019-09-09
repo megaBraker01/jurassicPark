@@ -50,6 +50,10 @@ public class AtraccionControlador {
 		ArchivoControlador.editar(ARCHIVO, Atraccion.toString());
 	}
 	
+	/**
+	 * edita los datos de una atraccion
+	 * @param Atraccion
+	 */
 	public void editar(Atraccion Atraccion) {
 		Atraccion existeAtraccion = this.buscarPorId(Atraccion.getId());
 		if(existeAtraccion != null) {
@@ -69,7 +73,7 @@ public class AtraccionControlador {
 				nuevoContenido += fila[i]+"\n";
 			}
 			
-			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim(), true);
+			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim());
 		}
 	}
 	
@@ -99,7 +103,7 @@ public class AtraccionControlador {
 	}
 	
 	/**
-	 * 
+	 * busca por el id de la atraccion
 	 * @param id
 	 * @return
 	 */
@@ -126,7 +130,7 @@ public class AtraccionControlador {
 	}
 	
 	/**
-	 * 
+	 * busca por el nombre de la atraccion
 	 * @param nombre
 	 * @return
 	 */
@@ -153,7 +157,7 @@ public class AtraccionControlador {
 	}
 	
 	/**
-	 * devuelve las atracciones con valor disponible true
+	 * devuelve las atracciones que tengan disponible = true
 	 * @return
 	 */
 	public List<Atraccion> atraccionesFuncionando() {

@@ -19,7 +19,6 @@ public class Cliente extends Persona implements personaInterfaz {
     public Cliente(String nombreCompleto, int edad, String dni) {
         super(nombreCompleto, edad);
         this.setDni(dni);
-        //this.setId(idSiguiente++);
     }
     
     public Cliente(int id, String nombreCompleto, int edad, String dni) {

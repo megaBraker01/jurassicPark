@@ -39,7 +39,7 @@ public class EntradaControlador {
 						Double.parseDouble(campos[6]),
 						Integer.parseInt(campos[7].trim()),						
 						campos[9]
-								);
+						);
 				lista.add(Entrada);
 				
 			}
@@ -81,7 +81,7 @@ public class EntradaControlador {
 				nuevoContenido += fila[i]+"\n";
 			}
 			
-			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim(), true);
+			ArchivoControlador.editar(ARCHIVO, nuevoContenido.trim());
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class EntradaControlador {
 						Double.parseDouble(campos[6]),
 						Integer.parseInt(campos[7].trim()),						
 						campos[9]
-								);
+						);
 				break;
 			}
 		}
@@ -229,7 +229,7 @@ public class EntradaControlador {
 	
 	
 	/**
-	 * busca por la fecha de la Entrada
+	 * filtra la lista de entradas por el año indicado
 	 * @param anio
 	 * @return
 	 */
@@ -255,7 +255,7 @@ public class EntradaControlador {
 						Double.parseDouble(campos[6]),
 						Integer.parseInt(campos[7].trim()),						
 						campos[9]
-								);
+						);
 				 lista.add(Entrada);
 			}
 		}
@@ -264,7 +264,7 @@ public class EntradaControlador {
 	}
 	
 	/**
-	 * 
+	 * filtras la lista de entradas por el año y mes indicado
 	 * @param anio
 	 * @param mes
 	 * @return
@@ -291,7 +291,7 @@ public class EntradaControlador {
 						Double.parseDouble(campos[6]),
 						Integer.parseInt(campos[7].trim()),						
 						campos[9]
-								);
+						);
 				 lista.add(Entrada);
 			}
 		}
@@ -300,7 +300,7 @@ public class EntradaControlador {
 	}
 	
 	/**
-	 * 
+	 * filtras la lista de entradas por el año, mes indicado y dia
 	 * @param anio
 	 * @param mes
 	 * @param dia
@@ -329,7 +329,7 @@ public class EntradaControlador {
 						Double.parseDouble(campos[6]),
 						Integer.parseInt(campos[7].trim()),						
 						campos[9]
-								);
+						);
 				 lista.add(Entrada);
 			}
 		}

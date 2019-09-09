@@ -1,15 +1,6 @@
 package vista;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
-
-import controlador.AtraccionControlador;
-import controlador.EmpleadoControlador;
-import controlador.EntradaControlador;
-import controlador.InformeControlador;
-import modelo.Atraccion;
-import modelo.Entrada;
 
 /**
  * @author Rafael Perez Sanchez
@@ -32,7 +23,6 @@ public class InformeVista extends Herramientas{
 	public static void main(String[] args) {
 		String seccion = "informes";
 		InformeVista av = new InformeVista();		
-		InformeControlador ic = new InformeControlador(SECCION+".txt");
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		

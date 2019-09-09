@@ -22,3 +22,75 @@
 22, hulk , E, true, true
 23, barco furia , E, true, true
 24, raknarok, E, true, true
+1, tifon, A, true, true
+2, rotoneitor , A, true, true
+3, los coches locos, A, true, false
+4, dragon shan, A, true, true
+5, abismo , B, true, true
+6, aserradero , B, true, true
+7, el martillo, B, true, false
+8, batman , B, true, true
+9, el manicomio, B, true, true
+10, valhalla, B, true, true
+11, tarantula , C, true, false
+12, los fiordos, C, true, true
+13, vertigo , C, true, true
+14, iron man, C, true, false
+15, los rapidos, D, true, true
+16, telesaurio , D, true, true
+17, kanoas, D, true, true
+18, tornado  , E, true, false
+19, la jungla, E, true, true
+20, star flyer , E, true, true
+21, superman, E, true, false
+22, hulk , E, true, true
+23, barco furia , E, true, true
+24, raknarok, D, true, true
+1, tifon, A, true, true
+2, rotoneitor , A, true, true
+3, los coches locos, A, true, false
+4, dragon shan, A, true, true
+5, abismo , B, true, true
+6, aserradero , B, true, true
+7, el martillo, B, true, false
+8, batman , B, true, true
+9, el manicomio, B, true, true
+10, valhalla, B, true, true
+11, tarantula , C, true, false
+12, los fiordos, C, true, true
+13, vertigo , C, true, true
+14, iron man, C, true, false
+15, los rapidos, D, true, true
+16, telesaurio , D, true, true
+17, kanoas, D, true, true
+18, tornado  , E, true, false
+19, la jungla, E, true, true
+20, star flyer , E, true, true
+21, superman, E, true, false
+22, hulk , E, true, true
+23, barco furia , E, true, true
+24, raknarok, E, true, true
+1, tifon, A, true, true
+2, rotoneitor , A, true, true
+3, los coches locos, A, true, false
+4, dragon shan, A, true, true
+5, abismo , B, true, true
+6, aserradero , B, true, true
+7, el martillo, B, true, false
+8, batman , B, true, true
+9, el manicomio, B, true, true
+10, valhalla, B, true, true
+11, tarantula , C, true, false
+12, los fiordos, C, true, true
+13, vertigo , C, true, true
+14, iron man, C, true, false
+15, los rapidos, D, true, true
+16, telesaurio , D, true, true
+17, kanoas, D, true, true
+18, tornado  , E, true, false
+19, la jungla, E, true, true
+20, star flyer , E, true, true
+21, superman, E, true, false
+22, hulk , E, true, true
+23, barco furia , E, true, true
+24, raknarok, E, true, true
