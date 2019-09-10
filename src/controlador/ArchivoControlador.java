@@ -87,6 +87,24 @@ public class ArchivoControlador {
 	 */
 	public static void editar(String path, String contenido) {
 		try {
+			BufferedWriter escribir = new BufferedWriter(new FileWriter(ARCHIVO_RUTA + path, true));
+			escribir.write(contenido+"\n");
+			escribir.flush();
+			escribir.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
+	/**
+	 * introduce el contenido al final del archivo,
+	 * concatenado con su contenido anterior
+	 * @param path: nombre de archivo con extencion, ej; archivo.txt
+	 * @param contenido: nuevo contenido
+	 */
+	public static void editar(String path, String contenido, boolean sobreEscribir) {
+		try {
 			BufferedWriter escribir = new BufferedWriter(new FileWriter(ARCHIVO_RUTA + path));
 			escribir.write(contenido+"\n");
 			escribir.flush();

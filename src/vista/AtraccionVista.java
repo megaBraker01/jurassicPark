@@ -108,12 +108,14 @@ public class AtraccionVista extends Herramientas {
 		List<Atraccion> lista = ac.lista();
 		Iterator<Atraccion> iterador = lista.iterator();
 		int total = lista.size();
+		av.echo("Las atracciones actualmente funcionando:");
 		av.echo("Total de "+SECCION+": "+total);
 		av.echo(av.menuLista);
 		while(iterador.hasNext()) {
 			av.echo(iterador.next().toString());
 		}
 		av.echo(av.menuLista);
+		av.echo("Las atracciones actualmente funcionando:");
 		av.echo("Total de "+SECCION+": "+total);
 		return lista;
 	}

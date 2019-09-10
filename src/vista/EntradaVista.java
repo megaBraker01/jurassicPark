@@ -1,14 +1,11 @@
 package vista;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
 import controlador.ClienteControlador;
 import controlador.EntradaControlador;
 import modelo.Cliente;
@@ -31,9 +28,7 @@ public class EntradaVista extends Herramientas {
 	 * @param args
 	 */
 	public static boolean main(String[] args) {
-		String seccion = "entradas";
-		EntradaVista ev = new EntradaVista();		
-		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
+		EntradaVista ev = new EntradaVista();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		boolean continuar = true;		
@@ -52,12 +47,15 @@ public class EntradaVista extends Herramientas {
 				case "new":
 					EntradaVista.nuevo();
 					break;
+					
 				case "edit":
 					EntradaVista.edit();
 					break;
+					
 				case "find":
 					EntradaVista.buscar();
 					break;
+					
 				case "back":
 					
 					ev.echo("Saliendo de la seccion ["+SECCION.toUpperCase()+"]");
@@ -100,6 +98,7 @@ public class EntradaVista extends Herramientas {
 		ClienteControlador clienteController = new ClienteControlador("clientes.txt");
 		EntradaVista ev = new EntradaVista();
 		int ret = 0;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		
 		ev.echo("Indique el DNI del cliente");
@@ -161,6 +160,7 @@ public class EntradaVista extends Herramientas {
 	
 	public static Entrada buscar() {
 		Entrada Entrada = null;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		EntradaVista h = new EntradaVista();
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
@@ -179,11 +179,10 @@ public class EntradaVista extends Herramientas {
 	public static void buscarPorFecha() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		Date fecha = new Date();
-		String tipoFiltro = "";
-		int totalEntradas = ec.getTotalEntradas();
-		
+		String tipoFiltro = "";		
 		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
 		DateFormat fechaActual = new SimpleDateFormat("dd-MM-yyyy");
@@ -240,6 +239,7 @@ public class EntradaVista extends Herramientas {
 	public static void buscarPorAnio() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
@@ -259,6 +259,7 @@ public class EntradaVista extends Herramientas {
 	public static void buscarPorAnioMes() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		ev.echo("Indique el a\u00f1o (yyyy):");
 		String anio = sc.nextLine().toLowerCase();
@@ -284,6 +285,7 @@ public class EntradaVista extends Herramientas {
 	public static void buscarPorAnioMesDia() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int totalAnual = ec.getTotalEntradas();
 		ev.echo("Indique el a\u00f1o (yyyy):");
@@ -312,6 +314,7 @@ public class EntradaVista extends Herramientas {
 			EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 			ClienteControlador clienteController = new ClienteControlador("clientes.txt");
 			EntradaVista ev = new EntradaVista();
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			ev.echo("Indique el tipo de entrada (1 = general, 2 = dia laborable (lunes a jueves), 3 = tarde (16h en adelante), 4 = familiar)");
 			String entrada = sc.nextLine();

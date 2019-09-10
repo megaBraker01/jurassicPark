@@ -20,8 +20,7 @@ public class EmpleadoVista extends Herramientas {
 	public EmpleadoVista() {}
 	
 	public static boolean main(String[] args) {
-		EmpleadoVista cv = new EmpleadoVista();		
-		EmpleadoControlador cc = new EmpleadoControlador(SECCION+".txt");
+		EmpleadoVista cv = new EmpleadoVista();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		Empleado emp;
@@ -33,23 +32,10 @@ public class EmpleadoVista extends Herramientas {
 			cv.echo("elige una opcion:_");
 			
 			String opcion = scanner.next().toLowerCase();
-			Persona p;
-			String nombre;
-			String dni;
-			String edad;
-			String grupo;
 			switch(opcion) {
 				case "list":
 					
-					List<Persona> lista = cc.lista();
-					int total = lista.size();
-					Iterator<Persona> iterador = lista.iterator();
-					cv.echo("Total de "+SECCION+": "+total);
-					cv.echo(cv.menuLista);
-					while(iterador.hasNext()) {
-						cv.echo(iterador.next().toString());
-					}
-					cv.echo("Total de "+SECCION+": "+total);
+					EmpleadoVista.lista();
 					break;
 					
 				case "new":
@@ -65,56 +51,12 @@ public class EmpleadoVista extends Herramientas {
 					}
 					break;
 					
-				case "edit":
-					
-					cv.echo("Inserte el DNI del empleado a editar:");
-					Scanner sc1 = new Scanner(System.in);
-					dni = sc1.next();
-					p = cc.buscarPordni(dni);
-					
-					if(p == null) {
-						cv.echo("[ERROR] No se ha encontrado al empleado con el DNI: "+ dni);
-					} else {
-						cv.echo("los datos actuales son:");
-						cv.echo(cv.menuLista);
-						cv.echo(p.toString());
-						cv.echo("Editar Nombre:");
-						Scanner sc2 = new Scanner(System.in);
-						nombre = sc2.nextLine();
-						if(!nombre.isEmpty() && !nombre.equals("")) {
-							p.setNombreCompleto(nombre);
-						}
-						
-						cv.echo("Editar DNI:");
-						dni = sc2.nextLine();
-						if(!dni.isEmpty() && !dni.equals("")) {
-							p.setDni(dni);
-						}
-						
-						cv.echo("Editar Edad:");
-						edad = sc2.nextLine();
-						if(!edad.isEmpty() && !edad.equals("")) {
-							p.setEdad(Integer.parseInt(edad));
-						}
-						
-						cc.editar(p);
-						cv.echo("\nLos nuevos datos son:");
-						cv.echo(cv.menuLista);
-						cv.echo(p);
-					}
+				case "edit":					
+					EmpleadoVista.editar();
 					
 					break;
 				case "find":
-
-					cv.echo("indique el DNI del empleado");
-					emp = EmpleadoVista.buscar();
-					if (emp != null) {
-						cv.echo("Ya existe un empleado con el DNI indicado");
-						cv.echo(cv.menuLista);
-						cv.echo(emp);
-					} else {
-						cv.echo("NO existe empleado con el DNI indicado");
-					}
+					EmpleadoVista.find();
 					
 					break;
 				case "back":
@@ -132,8 +74,24 @@ public class EmpleadoVista extends Herramientas {
 		return false;
 	}
 	
+	public static void lista() {
+		EmpleadoVista cv = new EmpleadoVista();		
+		EmpleadoControlador cc = new EmpleadoControlador(SECCION+".txt");
+		List<Persona> lista = cc.lista();
+		int total = lista.size();
+		Iterator<Persona> iterador = lista.iterator();
+		cv.echo("Total de "+SECCION+": "+total);
+		cv.echo(cv.menuLista);
+		while(iterador.hasNext()) {
+			cv.echo(iterador.next().toString());
+		}
+		cv.echo(cv.menuLista);
+		cv.echo("Total de "+SECCION+": "+total);
+	}
+	
 	public static Empleado buscar () {
 		Empleado ret = null;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		EmpleadoControlador cc = new EmpleadoControlador(SECCION+".txt");
 		EmpleadoVista cv = new EmpleadoVista();
@@ -150,6 +108,7 @@ public class EmpleadoVista extends Herramientas {
 	}
 	
 	public static int nuevo () {
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int ret = 0; // valor de retorno por defecto
 		Empleado p;
@@ -193,5 +152,61 @@ public class EmpleadoVista extends Herramientas {
 		
 		return ret;
 	}
+	
+	public static void find() {
+		EmpleadoVista cv = new EmpleadoVista();	
+		Empleado emp;
+		cv.echo("indique el DNI del empleado");
+		emp = EmpleadoVista.buscar();
+		if (emp != null) {
+			cv.echo("Ya existe un empleado con el DNI indicado");
+			cv.echo(cv.menuLista);
+			cv.echo(emp);
+		} else {
+			cv.echo("NO existe empleado con el DNI indicado");
+		}
+	}
+	
+	public static void editar() {
+		EmpleadoVista cv = new EmpleadoVista();		
+		EmpleadoControlador cc = new EmpleadoControlador(SECCION+".txt");
+		cv.echo("Inserte el DNI del empleado a editar:");
+		@SuppressWarnings("resource")
+		Scanner sc1 = new Scanner(System.in);
+		String dni = sc1.next();
+		Persona p = cc.buscarPordni(dni);
+		
+		if(p == null) {
+			cv.echo("[ERROR] No se ha encontrado al empleado con el DNI: "+ dni);
+		} else {
+			cv.echo("los datos actuales son:");
+			cv.echo(cv.menuLista);
+			cv.echo(p.toString());
+			cv.echo("Editar Nombre:");
+			@SuppressWarnings("resource")
+			Scanner sc2 = new Scanner(System.in);
+			String nombre = sc2.nextLine();
+			if(!nombre.isEmpty() && !nombre.equals("")) {
+				p.setNombreCompleto(nombre);
+			}
+			
+			cv.echo("Editar DNI:");
+			dni = sc2.nextLine();
+			if(!dni.isEmpty() && !dni.equals("")) {
+				p.setDni(dni);
+			}
+			
+			cv.echo("Editar Edad:");
+			String edad = sc2.nextLine();
+			if(!edad.isEmpty() && !edad.equals("")) {
+				p.setEdad(Integer.parseInt(edad));
+			}
+			
+			cc.editar(p);
+			cv.echo("\nLos nuevos datos son:");
+			cv.echo(cv.menuLista);
+			cv.echo(p);
+		}
+	} 
 	
 }

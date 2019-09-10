@@ -14,8 +14,9 @@ import modelo.Persona;
  */
 public class PersonaVista extends Herramientas {
 
-	public PersonaVista() {
-	}
+	public static final String SECCION = "personas";
+	
+	public PersonaVista() {}
 	
 	public static boolean main(String nombreSeccion) {
 		PersonaVista cv = new PersonaVista();		
@@ -37,13 +38,7 @@ public class PersonaVista extends Herramientas {
 			switch(opcion) {
 				case "list":
 					
-					Iterator<Persona> iterador = cc.lista().iterator();
-					if(iterador.hasNext()) {
-						cv.echo("\n[ID] [NOMBRE] [EDAD] [DNI]");
-						while(iterador.hasNext()) {
-							cv.echo(iterador.next().toString());
-						}
-					}					
+									
 					break;
 					
 				case "new":
@@ -135,5 +130,20 @@ public class PersonaVista extends Herramientas {
 		}
 		
 		return false;
+	}
+	
+	
+	public void lista() {
+		PersonaVista cv = new PersonaVista();		
+		PersonaControlador cc = new PersonaControlador(SECCION+".txt");
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+		Iterator<Persona> iterador = cc.lista().iterator();
+		if(iterador.hasNext()) {
+			cv.echo("\n[ID] [NOMBRE] [EDAD] [DNI]");
+			while(iterador.hasNext()) {
+				cv.echo(iterador.next().toString());
+			}
+		}	
 	}
 }
