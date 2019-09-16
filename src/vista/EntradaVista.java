@@ -71,7 +71,9 @@ public class EntradaVista extends Herramientas {
 		return false;
 	}
 	
-	
+	/**
+	 * Lista todas las entradas generadas
+	 */
 	public static void listar() {
 		EntradaControlador ec = new EntradaControlador("entradas.txt");
 		EntradaVista ev = new EntradaVista();
@@ -89,8 +91,8 @@ public class EntradaVista extends Herramientas {
 	
 	
 	/**
-	 * 
-	 * @return
+	 * te permite crear una nueva entrada
+	 * @return int
 	 */
 	public static int nuevo() {	
 		
@@ -158,6 +160,10 @@ public class EntradaVista extends Herramientas {
 		return ret;
 	}
 	
+	/**
+	 * busca una entrada por su ID o por el ID del cliente
+	 * @return Entrada
+	 */
 	public static Entrada buscar() {
 		Entrada Entrada = null;
 		@SuppressWarnings("resource")
@@ -176,6 +182,10 @@ public class EntradaVista extends Herramientas {
 		return Entrada;
 	}
 	
+	/**
+	 * te permite buscar entradas por año, mes , dia 
+	 * y te genera un informe con la informacion obtenida
+	 */
 	public static void buscarPorFecha() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
@@ -235,7 +245,9 @@ public class EntradaVista extends Herramientas {
 		ev.echo(info);
 	}
 	
-	
+	/**
+	 * busca las entradas y las filtra por año indicado
+	 */
 	public static void buscarPorAnio() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
@@ -255,7 +267,9 @@ public class EntradaVista extends Herramientas {
 		ev.echo("Total de "+SECCION+": "+total);
 	}
 	
-	
+	/**
+	 * busca las entradas y las filtra por año y mes indicado
+	 */
 	public static void buscarPorAnioMes() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
@@ -281,7 +295,9 @@ public class EntradaVista extends Herramientas {
 		ev.echo("Total de "+SECCION+": "+total);
 	}
 	
-	
+	/**
+	 * busca las entradas y las filtra por año, mes y día indicado
+	 */
 	public static void buscarPorAnioMesDia() {
 		EntradaControlador ec = new EntradaControlador(SECCION+".txt");
 		EntradaVista ev = new EntradaVista();
@@ -307,7 +323,10 @@ public class EntradaVista extends Herramientas {
 		ev.echo("Total de "+SECCION+": "+total);
 	}
 	
-	
+	/**
+	 * edita los datos de una entrada y lo hace persistente
+	 * @return Entrada
+	 */
 	public static Entrada edit() {
 		Entrada e = EntradaVista.buscar();
 		if(null != e) {

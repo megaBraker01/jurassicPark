@@ -219,14 +219,20 @@ public class AtraccionVista extends Herramientas {
 		AtraccionVista av = new AtraccionVista();	
 		List<Atraccion> lista = ac.atraccionesFuncionando();
 		Iterator<Atraccion> iterador = lista.iterator();
-		int total = lista.size();
-		av.echo("Total de "+SECCION+": "+total);
+		String info = "";		
+		int totalFuncionando = lista.size();
+		int totalAtracciones = ac.lista().size();
+		float porcentaje = ((float)totalFuncionando / totalAtracciones) *100;
+		info += "Total de Atracciones en funcionamiento: "+totalFuncionando+"\n";
+		info += "Atracciones en Total: "+totalAtracciones+"\n";
+		info += "Las Atracciones en funcionamiento es "+av.numFormat(porcentaje)+"% de todas las Atracciones";
+		av.echo(info);
 		av.echo(av.menuLista);
 		while(iterador.hasNext()) {
 			av.echo(iterador.next().toString());
 		}
 		av.echo(av.menuLista);
-		av.echo("Total de "+SECCION+": "+total);
+		av.echo(info);
 		return lista;
 	}
 
